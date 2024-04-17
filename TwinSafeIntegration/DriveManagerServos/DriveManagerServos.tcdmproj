@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Name>Drive Manager 2</Name>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{171cf470-a121-46ac-96b2-46cb68596b5f}</ProjectGuid>
+    <ProjectGuid>{b9037e00-d66a-4633-bca5-25320996121c}</ProjectGuid>
     <TcPath>
     </TcPath>
     <AssemblyName>DriveManagerServos</AssemblyName>

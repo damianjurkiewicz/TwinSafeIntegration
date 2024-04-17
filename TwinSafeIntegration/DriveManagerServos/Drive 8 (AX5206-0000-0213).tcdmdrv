@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TreeItem>
   <ItemName>Drive 8 (AX5206-0000-0213)</ItemName>
-  <PathName>TIID^Device 3 (EtherCAT)^Drive 8 (AX5206-0000-0213)</PathName>
+  <PathName>TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)</PathName>
   <ItemType>5</ItemType>
   <ItemId>8</ItemId>
   <ObjectId>#x03020008</ObjectId>
@@ -11,18 +11,154 @@
   <Disabled>false</Disabled>
   <TreeImageData16x14>424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff0000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffff0000ff0000ff0000ff00008080800000ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffff0000c0c0c0c0c0c0c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0ff00008080800000000000000000000000000000000000000000000000000000ff0000ffff00ffff0000c0c0c0c0c0c0ff0000808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0ff0000ff0000c0c0c0808080000000ff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080</TreeImageData16x14>
   <Xml>
+    <AX5XXXDriveTool>
+      <InitCmds>
+        <InitCmd DriveNo="0" IDN="30" MotorDataLevel="0" DisableMode="0">
+          <RetainData>3e0042004669726d776172653a2076322e313320284275696c64203030303729202f20426f6f746c6f616465723a2076322e303220284275696c6420303030322900</RetainData>
+        </InitCmd>
+        <InitCmd DriveNo="0" IDN="432" MotorDataLevel="0" DisableMode="0">
+          <RetainData>1200160053657269616c233a20303030333632383538</RetainData>
+        </InitCmd>
+        <InitCmd DriveNo="0" IDN="33088" MotorDataLevel="0" DisableMode="0">
+          <RetainData>24002400d5000700ca0002002c9d5b002c9d5b000000000000000000000000002260000000000000</RetainData>
+        </InitCmd>
+        <InitCmd DriveNo="0" IDN="33093" MotorDataLevel="0" DisableMode="0">
+          <RetainData>16001a004170722033302032303230202c2031333a35353a3130</RetainData>
+        </InitCmd>
+      </InitCmds>
+      <StatusBar>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>135</Index>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>390</Index>
+          <Width>85</Width>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>95</Index>
+          <Width>100</Width>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>32821</Index>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>32973</Index>
+          <SubItem>Bit0</SubItem>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>32973</Index>
+          <SubItem>Bit3</SubItem>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>384</Index>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>135</Index>
+          <SubItem>ActualOperationMode</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33080</Index>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>32865</Index>
+          <SubItem>MotorBrakeUnlocked</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>380</Index>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>381</Index>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>32831</Index>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>Active</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>ReadyToEnable</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>IGreaterThanInom</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>IPeakLimitReached</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>IreductionActive</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>UmaxReached</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33221</Index>
+          <SubItem>FieldWeakeningActive</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>Active</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>ReadyToEnable</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>PosDirectionEnabled</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>NegDirectionEnabled</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>AccDecLimitationActive</SubItem>
+        </Element>
+        <Element option="1" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>vLimitationActive</SubItem>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>vZeroReached</SubItem>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>CmdMovPositive</SubItem>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>33271</Index>
+          <SubItem>CmdMovNegative</SubItem>
+        </Element>
+        <Element option="0" SortOder="0" SubIdx="0">
+          <Index>32983</Index>
+        </Element>
+      </StatusBar>
+    </AX5XXXDriveTool>
     <TcDMDrive>
       <SortId>0</SortId>
       <DriveModuleType>31</DriveModuleType>
       <TcLink>
         <TcPrjPath>..\TwinSafeIntegration\TwinSafeIntegration.tsproj</TcPrjPath>
-        <IoItemPathName>TIID^Device 3 (EtherCAT)^Drive 8 (AX5206-0000-0213)</IoItemPathName>
+        <IoItemPathName>TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)</IoItemPathName>
         <ItemId>8</ItemId>
         <ObjectId>#x03020008</ObjectId>
       </TcLink>
       <OrderCode>AX5206-0000-02xx</OrderCode>
       <Name>Drive 8 (AX5206-0000-0213)</Name>
+      <FirmwareVersion>Firmware: v2.13 (Build 0007) / Bootloader: v2.02 (Build 0002)</FirmwareVersion>
+      <CatalogNo>AX5206-0000-0213</CatalogNo>
+      <HardwareVersion>c:0180  p:0103  d:0102  f:0101  o:----  s:----</HardwareVersion>
+      <SerialNr>Serial#: 000362858</SerialNr>
       <ProductRevision>AX5206-0000-0213</ProductRevision>
+      <HasDualUseInfo>true</HasDualUseInfo>
+      <OperatingFrequencyLimitation>true</OperatingFrequencyLimitation>
       <WatchLog UpdateIntervalInMs="500">
         <WatchLogItem>
           <WatchLogParaSoE Index="33092" />
@@ -109,9 +245,33 @@
         <Channel ChnId="0">
           <TcLink>
             <TcPrjPath>..\TwinSafeIntegration\TwinSafeIntegration.tsproj</TcPrjPath>
-            <IoItemPathName>TIID^Device 3 (EtherCAT)^Drive 8 (AX5206-0000-0213)</IoItemPathName>
+            <IoItemPathName>TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)</IoItemPathName>
+            <NcItemPathName AxisType="1">TINC^NC-Task SAF^Axes^Axis 1</NcItemPathName>
           </TcLink>
           <SelectedModifyOptPDOsMode>0</SelectedModifyOptPDOsMode>
+          <Modulo>
+            <Name>ControllerModuloType</Name>
+            <Parameter>
+              <PropertyName>Modulo_IsOn</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_DataStorage</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_Value</PropertyName>
+              <Value>1048576</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_MinPositionRange</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_MaxPositionRange</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+          </Modulo>
           <Block Id="0">
             <Motor IsManualInput="false" IsManualMFiInput="false" DataSource="1">
               <DatabaseType>
@@ -686,12 +846,12 @@
                   <Data type="int8">0</Data>
                 </Parameter>
                 <Parameter>
-                  <Comment LcId="1033" />
+                  <Comment LcId="1033"></Comment>
                   <Name>AbsolutePositionData_ResolutionSinglePos</Name>
                   <Data type="int16">18</Data>
                 </Parameter>
                 <Parameter>
-                  <Comment LcId="1033" />
+                  <Comment LcId="1033"></Comment>
                   <Name>AbsolutePositionData_ResolutionMultiPos</Name>
                   <Data type="int16">0</Data>
                 </Parameter>
@@ -840,7 +1000,7 @@
               </Parameter>
               <Parameter>
                 <PropertyName>MaxApplicationSpeed</PropertyName>
-                <Value>942.477796076938</Value>
+                <Value>895.35391</Value>
               </Parameter>
             </Load>
             <Controller />
@@ -939,9 +1099,33 @@
         <Channel ChnId="1">
           <TcLink>
             <TcPrjPath>..\TwinSafeIntegration\TwinSafeIntegration.tsproj</TcPrjPath>
-            <IoItemPathName>TIID^Device 3 (EtherCAT)^Drive 8 (AX5206-0000-0213)</IoItemPathName>
+            <IoItemPathName>TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)</IoItemPathName>
+            <NcItemPathName AxisType="1">TINC^NC-Task SAF^Axes^Axis 2</NcItemPathName>
           </TcLink>
           <SelectedModifyOptPDOsMode>0</SelectedModifyOptPDOsMode>
+          <Modulo>
+            <Name>ControllerModuloType</Name>
+            <Parameter>
+              <PropertyName>Modulo_IsOn</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_DataStorage</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_Value</PropertyName>
+              <Value>1048576</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_MinPositionRange</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+            <Parameter>
+              <PropertyName>Modulo_MaxPositionRange</PropertyName>
+              <Value>0</Value>
+            </Parameter>
+          </Modulo>
           <Block Id="0">
             <Motor IsManualInput="false" IsManualMFiInput="false" DataSource="1">
               <DatabaseType>
@@ -1516,12 +1700,12 @@
                   <Data type="int8">0</Data>
                 </Parameter>
                 <Parameter>
-                  <Comment LcId="1033" />
+                  <Comment LcId="1033"></Comment>
                   <Name>AbsolutePositionData_ResolutionSinglePos</Name>
                   <Data type="int16">18</Data>
                 </Parameter>
                 <Parameter>
-                  <Comment LcId="1033" />
+                  <Comment LcId="1033"></Comment>
                   <Name>AbsolutePositionData_ResolutionMultiPos</Name>
                   <Data type="int16">0</Data>
                 </Parameter>
@@ -1670,7 +1854,7 @@
               </Parameter>
               <Parameter>
                 <PropertyName>MaxApplicationSpeed</PropertyName>
-                <Value>942.477796076938</Value>
+                <Value>895.35391</Value>
               </Parameter>
             </Load>
             <Controller />
@@ -2121,7 +2305,7 @@
               <IDN>1</IDN>
               <Elements>64</Elements>
               <Attribute>0</Attribute>
-              <Data>a00f</Data>
+              <Data>d007</Data>
             </InitCmd>
             <InitCmd>
               <Transition>PS</Transition>
@@ -3113,6 +3297,39 @@
               <Attribute>0</Attribute>
               <Data>2e22</Data>
             </InitCmd>
+            <InitCmd>
+              <Transition>PS</Transition>
+              <Comment><![CDATA[Configured safety option]]></Comment>
+              <Timeout>0</Timeout>
+              <OpCode>3</OpCode>
+              <DriveNo>0</DriveNo>
+              <IDN>34768</IDN>
+              <Elements>64</Elements>
+              <Attribute>0</Attribute>
+              <Data>0200</Data>
+            </InitCmd>
+            <InitCmd>
+              <Transition>PS</Transition>
+              <Comment><![CDATA[Mains voltage positive tolerance range]]></Comment>
+              <Timeout>0</Timeout>
+              <OpCode>3</OpCode>
+              <DriveNo>0</DriveNo>
+              <IDN>32970</IDN>
+              <Elements>64</Elements>
+              <Attribute>0</Attribute>
+              <Data>6400</Data>
+            </InitCmd>
+            <InitCmd>
+              <Transition>PS</Transition>
+              <Comment><![CDATA[Mains voltage negative tolerance range]]></Comment>
+              <Timeout>0</Timeout>
+              <OpCode>3</OpCode>
+              <DriveNo>0</DriveNo>
+              <IDN>32971</IDN>
+              <Elements>64</Elements>
+              <Attribute>0</Attribute>
+              <Data>6400</Data>
+            </InitCmd>
           </InitCmds>
         </SoE>
       </Mailbox>
@@ -3836,5 +4053,7 @@
       <AmsPort>1008</AmsPort>
     </AmsAddress>
     <SoeChannels>2</SoeChannels>
+    <LinkedAxis Chn="0">TINC^NC-Task SAF^Axes^Axis 1</LinkedAxis>
+    <LinkedAxis Chn="1">TINC^NC-Task SAF^Axes^Axis 2</LinkedAxis>
   </EtherCAT>
 </TreeItem>
