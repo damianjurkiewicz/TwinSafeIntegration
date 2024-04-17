@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="SafetyGlobalVariableList" Id="{13d008cd-a3ed-463e-8cd9-e5d8c7d5c4a7}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	
+
+	//TWinSafe Group
+	FB_ERR 						AT %I* :BOOL;
+	COM_ERR 					AT %I* :BOOL;
+	OTHER_ERR 					AT %I* :BOOL;
+	IN_RUN 						AT %I* :BOOL;
+	RUN_STOP 					AT %Q* :BOOL;
+	ERR_ACK 					AT %Q* :BOOL;
+	
+	//AX580x
+	AX5805_Error_Ch1	 		AT %I* :BOOL;
+	AX5805_Error_Ch2 			AT %I* :BOOL;
+	AX5805_STO_State_Ch1 		AT %I* :BOOL;
+	AX5805_STO_State_Ch2 		AT %I* :BOOL;
+	AX5805_ErrACK				AT %Q* :BOOL;
+	
+	//Other
+	SAFETY_Permission	 		AT %I* :BOOL; // FALSE = cannot operate
+	RestartFBs_TSG				AT %Q* :BOOL; // Restart FB in TwinSafe Group
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
