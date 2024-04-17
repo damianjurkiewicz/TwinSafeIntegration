@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Name>Drive Manager 2</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{171cf470-a121-46ac-96b2-46cb68596b5f}</ProjectGuid>
+    <TcPath>
+    </TcPath>
+    <AssemblyName>DriveManagerServos</AssemblyName>
+    <RootNamespace>DriveManagerServos</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Drive 8 %28AX5206-0000-0213%29.tcdmdrv">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+</Project>
