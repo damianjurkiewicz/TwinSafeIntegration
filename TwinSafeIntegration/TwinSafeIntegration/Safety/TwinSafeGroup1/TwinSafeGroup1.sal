@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<safetyApplication Crc="279265476" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.4.0.0" Id="e2e2530e-47f1-4302-956c-63a5c332f6dc" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
+<safetyApplication Crc="1635605798" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.4.0.0" Id="e2e2530e-47f1-4302-956c-63a5c332f6dc" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
   <networks>
     <safetyApplicationHasNetworks Id="6fde70c2-a0cc-4fba-b273-002241e79221">
       <Network Id="13731c11-165c-4970-83cf-444790075c48" name="Network1" networkName="SAFETY_LOGIC" intId="1" networkOrderId="0">
@@ -457,7 +457,13 @@
       <variable Id="9db81eac-24b0-4511-863c-e9ae68ea8cb5" name="RestartFB" isLocal="false">
         <sourceUsages>
           <variableHasSourceUsages Id="524475db-0efe-41b2-b3dc-b84441f12c1e">
-            <variableUsages Id="5d3fa81e-a11a-42c7-a1b7-5a37324dbcc8" />
+            <variableUsages Id="5d3fa81e-a11a-42c7-a1b7-5a37324dbcc8">
+              <usages>
+                <variableUsagesHasUsages Id="7872ac71-6647-4c6e-bbc0-446fa67c0c0d">
+                  <aliasDeviceIoUsage Id="c8f54108-8138-432b-b527-59fede534f0c" sdsId="12" channelId="1" functionId="1131179973" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasSourceUsages>
         </sourceUsages>
         <targetUsages>
@@ -483,7 +489,13 @@
       <variable Id="3432e393-fdb2-48d4-94a7-36511f830338" name="EL1904_Ch1" isLocal="false">
         <sourceUsages>
           <variableHasSourceUsages Id="2f761e54-a590-4dca-9f2d-47a1d74d0d00">
-            <variableUsages Id="2d0b6b39-2726-4cfe-ad0b-ee4476b60463" />
+            <variableUsages Id="2d0b6b39-2726-4cfe-ad0b-ee4476b60463">
+              <usages>
+                <variableUsagesHasUsages Id="68c92305-9555-4c52-a916-8184b6f15ee8">
+                  <aliasDeviceIoUsage Id="8dbc9176-0e38-41c2-9b6a-3d82d32391a9" sdsId="2" channelId="1" functionId="1610678529" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasSourceUsages>
         </sourceUsages>
         <targetUsages>
@@ -509,7 +521,13 @@
       <variable Id="018189b5-f1bf-40e7-888e-c8d60b28d067" name="EL1904_Ch2" isLocal="false">
         <sourceUsages>
           <variableHasSourceUsages Id="31073c73-2a73-46a1-864e-f475e505d296">
-            <variableUsages Id="e3f9f41f-050b-4c77-a814-b5348da58137" />
+            <variableUsages Id="e3f9f41f-050b-4c77-a814-b5348da58137">
+              <usages>
+                <variableUsagesHasUsages Id="0702d30c-48dc-467b-bcf6-3e87fc6f6b6a">
+                  <aliasDeviceIoUsage Id="b8a17550-e806-4c00-adfa-cb8912852422" sdsId="2" channelId="3" functionId="1611727105" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasSourceUsages>
         </sourceUsages>
         <targetUsages>
@@ -552,7 +570,13 @@
         </sourceUsages>
         <targetUsages>
           <variableHasTargetUsages Id="f22773c7-a05d-469d-b697-26b1ba605d58">
-            <variableUsages Id="bbc6f163-7a01-4ccc-abd0-0cc9e699d0c8" />
+            <variableUsages Id="bbc6f163-7a01-4ccc-abd0-0cc9e699d0c8">
+              <usages>
+                <variableUsagesHasUsages Id="800701e6-dad5-447a-bcac-5810b6951ab7">
+                  <aliasDeviceIoUsage Id="a6f3f7b2-43fe-4dad-940f-c44428158046" sdsId="17" channelId="1" functionId="1131179972" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasTargetUsages>
         </targetUsages>
       </variable>
@@ -578,7 +602,16 @@
         </sourceUsages>
         <targetUsages>
           <variableHasTargetUsages Id="bc59aa65-be29-4f46-aae9-00200bbea5af">
-            <variableUsages Id="e9304be9-31c5-4c23-bbfb-379b036464f8" />
+            <variableUsages Id="e9304be9-31c5-4c23-bbfb-379b036464f8">
+              <usages>
+                <variableUsagesHasUsages Id="30df56ea-c059-4d63-af21-4028e0392124">
+                  <aliasDeviceIoUsage Id="01b97a4a-0423-4f38-ad5f-832c62092c67" sdsId="4" channelId="1" functionId="1715470337" />
+                </variableUsagesHasUsages>
+                <variableUsagesHasUsages Id="6898eb4c-77eb-495f-866c-b633715a851c">
+                  <aliasDeviceIoUsage Id="ee411129-0350-45be-95fe-65dcc6c620b6" sdsId="4" channelId="17" functionId="1849688065" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasTargetUsages>
         </targetUsages>
       </variable>
@@ -587,7 +620,13 @@
       <variable Id="2b9c38a9-fe84-4441-84e1-343ef6283ac4" name="PLC_AX5805_HW_ACK" isLocal="false">
         <sourceUsages>
           <variableHasSourceUsages Id="a5c38dd9-d02d-486b-992b-561b78cdfe2e">
-            <variableUsages Id="8cf709cb-ae9e-4710-bfb7-950d7854437a" />
+            <variableUsages Id="8cf709cb-ae9e-4710-bfb7-950d7854437a">
+              <usages>
+                <variableUsagesHasUsages Id="aa50e52a-74a9-41d8-a3e0-631fbe802222">
+                  <aliasDeviceIoUsage Id="b255565f-f023-4f45-84be-e4532561ed38" sdsId="11" channelId="1" functionId="1131179973" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasSourceUsages>
         </sourceUsages>
         <targetUsages>
@@ -630,7 +669,16 @@
         </sourceUsages>
         <targetUsages>
           <variableHasTargetUsages Id="0bfdc885-f82b-47a7-b624-288e8e6f54ec">
-            <variableUsages Id="2be1456e-621a-4b40-95fc-e74b3d5139c8" />
+            <variableUsages Id="2be1456e-621a-4b40-95fc-e74b3d5139c8">
+              <usages>
+                <variableUsagesHasUsages Id="6fe6ed97-f98e-4a40-a8c4-a543772ee28d">
+                  <aliasDeviceIoUsage Id="b084f3ca-c7cb-4698-abc2-c6dda232e8a8" sdsId="4" channelId="8" functionId="1714552833" />
+                </variableUsagesHasUsages>
+                <variableUsagesHasUsages Id="f0dd3ff5-f86d-4613-a3f1-b521bef193ad">
+                  <aliasDeviceIoUsage Id="cef86755-e272-4649-98d8-3c23e08f0b91" sdsId="4" channelId="24" functionId="1848770561" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasTargetUsages>
         </targetUsages>
       </variable>
@@ -639,7 +687,13 @@
       <variable Id="23ef2736-eb90-4a62-9e0a-d76ec9ab1621" name="AX5805_STOState_Ch1" isLocal="false">
         <sourceUsages>
           <variableHasSourceUsages Id="a5759037-fa98-487f-982a-cbb3f51fb220">
-            <variableUsages Id="0f273e93-6892-4de3-87ae-079da9802a36" />
+            <variableUsages Id="0f273e93-6892-4de3-87ae-079da9802a36">
+              <usages>
+                <variableUsagesHasUsages Id="34b1a938-9f03-4031-b3c4-68841a38200b">
+                  <aliasDeviceIoUsage Id="0e782712-176b-43c1-9b41-03d8a86a559b" sdsId="4" channelId="1" functionId="1715470337" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasSourceUsages>
         </sourceUsages>
         <targetUsages>
@@ -665,7 +719,13 @@
       <variable Id="72fa327d-cd29-4eca-b0a4-ad49eea0425e" name="AX5805_STOState_Ch2" isLocal="false">
         <sourceUsages>
           <variableHasSourceUsages Id="827493bb-5906-4063-b1d8-2bd16a7349e2">
-            <variableUsages Id="d85d1ca6-64ca-487c-87e6-28b805254293" />
+            <variableUsages Id="d85d1ca6-64ca-487c-87e6-28b805254293">
+              <usages>
+                <variableUsagesHasUsages Id="b9f2b5e9-025c-49de-b508-dbb0be456ce4">
+                  <aliasDeviceIoUsage Id="d42bb378-5e28-440a-8c98-3ec826f5ffb1" sdsId="4" channelId="17" functionId="1849688065" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasSourceUsages>
         </sourceUsages>
         <targetUsages>
@@ -784,7 +844,13 @@
         </sourceUsages>
         <targetUsages>
           <variableHasTargetUsages Id="fa5af78b-73d5-4a8f-b1f7-dfe132073266">
-            <variableUsages Id="38e74a72-0901-499e-9007-5fb72b8149b3" />
+            <variableUsages Id="38e74a72-0901-499e-9007-5fb72b8149b3">
+              <usages>
+                <variableUsagesHasUsages Id="3dc4645a-c9f8-4375-bed5-5948af450b75">
+                  <aliasDeviceIoUsage Id="ae5f7205-84a8-4ddf-8e6d-5a5573cdd789" sdsId="15" channelId="1" functionId="1131179972" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasTargetUsages>
         </targetUsages>
       </variable>
@@ -810,7 +876,13 @@
         </sourceUsages>
         <targetUsages>
           <variableHasTargetUsages Id="7932f590-9764-4fe3-9b98-e27b52615047">
-            <variableUsages Id="2ccc5618-737a-437c-b1a1-b7be05358e29" />
+            <variableUsages Id="2ccc5618-737a-437c-b1a1-b7be05358e29">
+              <usages>
+                <variableUsagesHasUsages Id="b646e973-70f3-4e5f-aa43-7b6a3e506ca3">
+                  <aliasDeviceIoUsage Id="1e3125b7-bcd7-4813-a4eb-20b2370858a8" sdsId="14" channelId="1" functionId="1131179972" />
+                </variableUsagesHasUsages>
+              </usages>
+            </variableUsages>
           </variableHasTargetUsages>
         </targetUsages>
       </variable>
