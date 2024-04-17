@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="MAIN" Id="{a3e4c2d6-a885-4b26-b590-2df042ec21ab}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM MAIN
+  <POU Name="SAFETY" Id="{57fe58dd-d891-495d-940f-1b88a7855144}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SAFETY
 VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
+    <LineIds Name="SAFETY">
+      <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -38,7 +38,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -60,25 +60,98 @@
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
+				<Task Id="4" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
+					<Name>SafetyTask</Name>
+				</Task>
 			</Tasks>
 		</System>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{03CAFC9C-91E8-1C35-5BCC-0EF8D5CBA6DB}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>SafetyGlobalVariableList.FB_ERR</Name>
+							<Comment><![CDATA[TWinSafe Group]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.COM_ERR</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.OTHER_ERR</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.IN_RUN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_Error_Ch1</Name>
+							<Comment><![CDATA[AX580x]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_Error_Ch2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch1</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
+							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>SafetyGlobalVariableList.RUN_STOP</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_ACK</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_ErrACK</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.RestartFBs_TSG</Name>
+							<Comment><![CDATA[ Restart FB in TwinSafe Gr]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
 					<Contexts>
 						<Context>
-							<Id>1</Id>
-							<Name>Default</Name>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
 						</Context>
 					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
 				</Instance>
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="5.81.155.22.4.1" RemoteName="Device 3 (EtherCAT)" InfoImageId="3">
-				<Name>Device 3 (EtherCAT)</Name>
+			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="5.81.155.22.4.1" RemoteName="CP6700-0001-0050" InfoImageId="3">
+				<Name>CP6700-0001-0050</Name>
 				<AddressInfo>
 					<Pnp>
 						<DeviceDesc>PCI\TcI8254x1</DeviceDesc>
