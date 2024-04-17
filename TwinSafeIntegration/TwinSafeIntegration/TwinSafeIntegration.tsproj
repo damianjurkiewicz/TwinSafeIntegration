@@ -1529,6 +1529,15 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000004}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..3] OF BIT</Name>
+			<BitSize>4</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>4</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-002000000010}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..1] OF BYTE</Name>
 			<BitSize>16</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
@@ -1544,15 +1553,6 @@ External Setpoint Generation:
 			<ArrayInfo>
 				<LBound>0</LBound>
 				<Elements>1</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000004}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..3] OF BIT</Name>
-			<BitSize>4</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>4</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -1891,24 +1891,11 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{98C72DB4-22BD-7E1F-2778-535438703A58}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{505CB873-35A7-3B21-9296-3E412A8D1210}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 						<Name>SafetyTask Inputs</Name>
-						<Var>
-							<Name>SafetyGlobalVariableList.FB_ERR</Name>
-							<Comment><![CDATA[TWinSafe Group]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.COM_ERR</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.OTHER_ERR</Name>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.IN_RUN</Name>
 							<Type>BOOL</Type>
@@ -1933,6 +1920,19 @@ External Setpoint Generation:
 						<Var>
 							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
 							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_FB</Name>
+							<Comment><![CDATA[TWinSafe Group]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_COM</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2171,7 +2171,7 @@ External Setpoint Generation:
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
 							<SyncMan>00121b002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d19002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>001d1b002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -2205,12 +2205,53 @@ External Setpoint Generation:
 									<Type GUID="{0994ABA9-6F32-EEB9-4362-7774F7A1F4F4}">FSOE_11</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="StandardOutputs" Index="#x17f0" InOut="1" Flags="#x2011" SyncMan="2">
-								<Entry Name="TwinSafeGroup1.ErrorAcknowledgement_1" Index="#x6000" Sub="#x01">
+							<Pdo Name="StandardInputs" Index="#x1bf0" Flags="#x2011" SyncMan="3">
+								<Entry Name="TwinSafeGroup1.ERR_COM_7" Index="#x7000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.ERR_FB_8" Index="#x7000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.ERR_OTHER_9" Index="#x7000" Sub="#x03">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.IN_RUN_10" Index="#x7000" Sub="#x04">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_AX5805_Error_Ch1_13" Index="#x7000" Sub="#x05">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_AX5805_Error_Ch2_14" Index="#x7000" Sub="#x06">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_AX5805_STOState_Ch1_15" Index="#x7000" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_AX5805_STOState_Ch2_16" Index="#x7000" Sub="#x08">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_SAFETY_Permission_17" Index="#x7000" Sub="#x09">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry>
 									<Type GUID="{18071995-0000-0000-0000-002000000007}">ARRAY [0..6] OF BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="StandardOutputs" Index="#x17f0" InOut="1" Flags="#x2011" SyncMan="2">
+								<Entry Name="TwinSafeGroup1.ERR_ACK_5" Index="#x6000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.RUN_STOP_6" Index="#x6000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_AX5805_ErrorAck_11" Index="#x6000" Sub="#x03">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="TwinSafeGroup1.PLC_RestartFBs_12" Index="#x6000" Sub="#x04">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000004}">ARRAY [0..3] OF BIT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="FSLOGIC Inputs" Index="#x1bff" Flags="#x0011" SyncMan="3">
@@ -5004,9 +5045,10 @@ External Setpoint Generation:
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500841000403}" Id="#x02030040"/>
 		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-0030-0304-1000-040332000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{00000000-0040-0304-4100-040341000403}" Id="#x02030020"/>
+		<MappingInfo Identifier="{03040040-0040-0304-4000-040340000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CP6700-0001-0050">
 			<OwnerB Name="TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)^Term 9 (AX5805)">
 				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionOutputs^TwinSafeGroup1.AX5805_4 RxPDO" VarB="Module 1 (Safety Process Data, 2 axis)^Inputs (Statusword)^FSOE"/>
@@ -5053,6 +5095,23 @@ External Setpoint Generation:
 				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
+			</OwnerB>
+		</OwnerA>
+		<OwnerA Name="TIPC^PLC^PLC Instance">
+			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 5 (EL6910)">
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch1_13"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch2_14"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_STO_State_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_STOState_Ch1_15"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_STO_State_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_STOState_Ch2_16"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_COM" VarB="StandardInputs^TwinSafeGroup1.ERR_COM_7"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_FB" VarB="StandardInputs^TwinSafeGroup1.ERR_FB_8"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_OTHER" VarB="StandardInputs^TwinSafeGroup1.ERR_OTHER_9"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.IN_RUN" VarB="StandardInputs^TwinSafeGroup1.IN_RUN_10"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.SAFETY_Permission" VarB="StandardInputs^TwinSafeGroup1.PLC_SAFETY_Permission_17"/>
+				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
+				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.ERR_ACK" VarB="StandardOutputs^TwinSafeGroup1.ERR_ACK_5"/>
+				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RUN_STOP" VarB="StandardOutputs^TwinSafeGroup1.RUN_STOP_6"/>
+				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

@@ -4,9 +4,9 @@
     <Declaration><![CDATA[VAR_GLOBAL
 	
 	//TWinSafe Group
-	FB_ERR						AT %I* :BOOL;
-	COM_ERR						AT %I* :BOOL;
-	OTHER_ERR					AT %I* :BOOL;
+	ERR_FB						AT %I* :BOOL;
+	ERR_COM						AT %I* :BOOL;
+	ERR_OTHER					AT %I* :BOOL;
 	IN_RUN						AT %I* :BOOL;
 	RUN_STOP					AT %Q* :BOOL;
 	ERR_ACK						AT %Q* :BOOL;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Crc="845053443" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project Crc="2087702138" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
@@ -16,7 +16,7 @@
     <IntProjName>Safety</IntProjName>
     <IsNewCreated>false</IsNewCreated>
     <SPlcProjVersion>1.7.0.0</SPlcProjVersion>
-    <NextSdsId>5</NextSdsId>
+    <NextSdsId>18</NextSdsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
@@ -25,6 +25,19 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="TwinSafeGroup1\Alias Devices\GroupHandling\ERR_ACK.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\GroupHandling\RUN_STOP.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\GroupHandling\ERR_COM.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\GroupHandling\ERR_FB.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\GroupHandling\ERR_OTHER.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\GroupHandling\IN_RUN.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_AX5805_ErrorAck.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_RestartFBs.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_AX5805_Error_Ch1.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_AX5805_Error_Ch2.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_AX5805_STOState_Ch1.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_AX5805_STOState_Ch2.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\PlcVariables\PLC_SAFETY_Permission.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\SafetyDevices\EL1918.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\SafetyDevices\EL2904.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\SafetyDevices\AX5805.sds" />
@@ -41,8 +54,9 @@
     <Folder Include="GVLs" />
     <Folder Include="TwinSafeGroup1" />
     <Folder Include="TwinSafeGroup1\Alias Devices" />
+    <Folder Include="TwinSafeGroup1\Alias Devices\GroupHandling" />
+    <Folder Include="TwinSafeGroup1\Alias Devices\PlcVariables" />
     <Folder Include="TwinSafeGroup1\Alias Devices\SafetyDevices" />
     <Folder Include="User FBs" />
-    <None Include="TwinSafeGroup1\Alias Devices\ErrorAcknowledgement.sds" />
   </ItemGroup>
 </Project>
