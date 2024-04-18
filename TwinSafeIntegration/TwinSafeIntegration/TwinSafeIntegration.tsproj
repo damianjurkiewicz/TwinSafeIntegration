@@ -1565,7 +1565,7 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -1612,10 +1612,14 @@ External Setpoint Generation:
 				<Axis Id="1" CreateSymbols="true" AxisType="1">
 					<Name>Axis 1</Name>
 					<AxisPara>
+						<Dynamic Acceleration="3272.24" Deceleration="3272.24" Jerk="9816.73"/>
+						<Velo RefSearch="21.81495" RefSync="21.81495" SlowManual="109.07475" FastManual="654.4485" Fast="2181.495" Maximum="2181.49"/>
+						<PositionAreaControl Enable="false" Range="1000"/>
+						<TargetPosControl Enable="false" Range="1000"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara MaxCount="#x0036ee7f"/>
+						<EncPara ScaleFactorNumerator="60" ScaleFactorDenominator="1048576" MaxCount="#xffffffff"/>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -1674,7 +1678,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="9">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="6" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="2399.6445" VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1730,6 +1734,7 @@ External Setpoint Generation:
 					</Drive>
 					<Controller Name="Ctrl" CtrType="1">
 						<CtrPara PriorControlFactor="1">
+							<PosDiffControl Enable="false" Range="15"/>
 							<Observer BandWidth="20"/>
 						</CtrPara>
 					</Controller>
@@ -1751,10 +1756,17 @@ External Setpoint Generation:
 				<Axis Id="2" CreateSymbols="true" AxisType="1">
 					<Name>Axis 2</Name>
 					<AxisPara>
+						<Dynamic Acceleration="3272.2425" Deceleration="3272.2425" Jerk="9816.7275"/>
+						<Velo RefSearch="21.81495" RefSync="21.81495" SlowManual="109.07475" FastManual="654.4485" Fast="2181.495" Maximum="2181.495"/>
+						<PositionAreaControl Enable="false"/>
+						<TargetPosControl Enable="false"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara MaxCount="#x0036ee7f"/>
+						<EncPara ScaleFactorNumerator="60" ScaleFactorDenominator="1048576" MaxCount="#xffffffff">
+							<SoftEndMinControl Range="-1000"/>
+							<SoftEndMaxControl Range="1000"/>
+						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -1813,7 +1825,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="9">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="6" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="2399.6445" VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1869,6 +1881,7 @@ External Setpoint Generation:
 					</Drive>
 					<Controller Name="Ctrl" CtrType="1">
 						<CtrPara PriorControlFactor="1">
+							<PosDiffControl Enable="false"/>
 							<Observer BandWidth="20"/>
 						</CtrPara>
 					</Controller>
@@ -1891,11 +1904,24 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{505CB873-35A7-3B21-9296-3E412A8D1210}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{9BD0B563-BC84-5B62-AFE1-EAA38F87E43F}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 						<Name>SafetyTask Inputs</Name>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_FB</Name>
+							<Comment><![CDATA[TWinSafe Group]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_COM</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.IN_RUN</Name>
 							<Type>BOOL</Type>
@@ -1920,19 +1946,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
 							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_FB</Name>
-							<Comment><![CDATA[TWinSafe Group]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_COM</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2170,8 +2183,8 @@ External Setpoint Generation:
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x1afe3052" RevisionNo="#x00140000" InfoDataAddr="true" RepeatSupport="true" TimeoutStateChange1="5000" TimeoutMailbox2="10000" TComSupport="true" PortPhys="51" DebugMemory="8" SafetyLogicSupported="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6910, TwinSAFE PLC" Desc="EL6910" PortABoxInfo="#x01000004">
 							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
-							<SyncMan>00121b002400010003000000000000000200001224010000</SyncMan>
-							<SyncMan>001d1b002000010004000000000000000200001d20010000</SyncMan>
+							<SyncMan>001215002400010003000000000000000200001224010000</SyncMan>
+							<SyncMan>001d15002000010004000000000000000200001d20010000</SyncMan>
 							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
 							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
 							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
@@ -2187,10 +2200,7 @@ External Setpoint Generation:
 								<Entry Name="TwinSafeGroup1.EL1918_2 TxPDO" Index="#x7000" Sub="#x01">
 									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
 								</Entry>
-								<Entry Name="TwinSafeGroup1.EL2904_3 TxPDO" Index="#x7000" Sub="#x02">
-									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
-								</Entry>
-								<Entry Name="TwinSafeGroup1.AX5805_4 TxPDO" Index="#x7000" Sub="#x03">
+								<Entry Name="TwinSafeGroup1.AX5805_4 TxPDO" Index="#x7000" Sub="#x02">
 									<Type GUID="{0994ABA9-6F32-EEB9-4362-7774F7A1F4F4}">FSOE_11</Type>
 								</Entry>
 							</Pdo>
@@ -2198,10 +2208,7 @@ External Setpoint Generation:
 								<Entry Name="TwinSafeGroup1.EL1918_2 RxPDO" Index="#x6000" Sub="#x01">
 									<Type GUID="{B05FDAB7-3241-ACD3-D16C-0FDAF8825BC9}">FSOE_7</Type>
 								</Entry>
-								<Entry Name="TwinSafeGroup1.EL2904_3 RxPDO" Index="#x6000" Sub="#x02">
-									<Type GUID="{2438F91B-E188-4ED7-8594-54354F9ED6A4}" Namespace="Safety">FSOE_6</Type>
-								</Entry>
-								<Entry Name="TwinSafeGroup1.AX5805_4 RxPDO" Index="#x6000" Sub="#x03">
+								<Entry Name="TwinSafeGroup1.AX5805_4 RxPDO" Index="#x6000" Sub="#x02">
 									<Type GUID="{0994ABA9-6F32-EEB9-4362-7774F7A1F4F4}">FSOE_11</Type>
 								</Entry>
 							</Pdo>
@@ -3531,7 +3538,100 @@ External Setpoint Generation:
 												<Value>895.35391</Value>
 											</Parameter>
 										</Load>
-										<Controller/>
+										<Controller>
+											<Filter Id="0">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+											<Filter Id="1">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+											<Filter Id="2">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+											<Filter Id="3">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+										</Controller>
 									</Block>
 									<Block Id="1">
 										<Controller/>
@@ -4385,7 +4485,100 @@ External Setpoint Generation:
 												<Value>895.35391</Value>
 											</Parameter>
 										</Load>
-										<Controller/>
+										<Controller>
+											<Filter Id="0">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+											<Filter Id="1">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+											<Filter Id="2">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+											<Filter Id="3">
+												<Name>ControllerFilter</Name>
+												<Parameter>
+													<PropertyName>Filter_Type</PropertyName>
+													<Value>0</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassFrequency</PropertyName>
+													<Value>500</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_LowPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassFrequency</PropertyName>
+													<Value>1000</Value>
+												</Parameter>
+												<Parameter>
+													<PropertyName>Filter_HighPassDamping</PropertyName>
+													<Value>0.5</Value>
+												</Parameter>
+											</Filter>
+										</Controller>
 									</Block>
 									<Block Id="1">
 										<Controller/>
@@ -4593,6 +4786,8 @@ External Setpoint Generation:
 						<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000200436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000002600000000000000000000000000000000000000000000000340ca800000000064004d61696e7320766f6c7461676520706f73697469766520746f6c6572616e63652072616e676500</MBoxUserCmdData>
 						<MBoxUserCmdData>020005000a0000002600000000000000000000000000000000000000000000000340cb800000000064004d61696e7320766f6c74616765206e6567617469766520746f6c6572616e63652072616e676500</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001c000000000000000000000000000000000000000000000003402782000000000100506f736974696f6e20636f6e74726f6c6c65722073657474696e677300</MBoxUserCmdData>
+						<MBoxUserCmdData>020005000a0000001c000000000000000000000000000000000000000000000023402782000000000100506f736974696f6e20636f6e74726f6c6c65722073657474696e677300</MBoxUserCmdData>
 						<Pdo Name="AT 1" Index="#x0010" Flags="#x0001" SyncMan="3">
 							<Entry Name="Drive status word" Index="#x0087" Flags="#x00000800">
 								<Type>UINT</Type>
@@ -5055,14 +5250,10 @@ External Setpoint Generation:
 			</OwnerB>
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 5 (EL6910)">
 				<Link VarA="Drive 8 (AX5206-0000-0213)^Term 9 (AX5805)^Module 1 (Safety Process Data, 2 axis)^Outputs (Controlword)^FSOE" VarB="ConnectionInputs^TwinSafeGroup1.AX5805_4 TxPDO"/>
-				<Link VarA="Term 1 (EK1100)^Term 6 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^TwinSafeGroup1.EL1918_2 RxPDO"/>
-				<Link VarA="Term 1 (EK1100)^Term 7 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^TwinSafeGroup1.EL2904_3 RxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 6 (EL1918)">
 				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionInputs^TwinSafeGroup1.EL1918_2 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
-			</OwnerB>
-			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 7 (EL2904)">
-				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionInputs^TwinSafeGroup1.EL2904_3 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
+				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionOutputs^TwinSafeGroup1.EL1918_2 RxPDO" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task SAF^Axes^Axis 1">
