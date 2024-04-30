@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="SAFETY" Id="{57fe58dd-d891-495d-940f-1b88a7855144}" SpecialFunc="None">
+  <POU Name="SAFETY" Id="{9a2e6223-27b0-0fcb-2a70-9980b1757f46}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM SAFETY
 VAR
 END_VAR

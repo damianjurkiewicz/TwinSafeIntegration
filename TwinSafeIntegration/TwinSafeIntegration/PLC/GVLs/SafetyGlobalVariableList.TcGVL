@@ -11,6 +11,8 @@
 	RUN_STOP					AT %Q* :BOOL;
 	ERR_ACK						AT %Q* :BOOL;
 	
+	eStop						AT %I* :BOOL;
+	
 	//AX580x
 	AX5805_Error_Ch1			AT %I* :BOOL;
 	AX5805_Error_Ch2			AT %I* :BOOL;
