@@ -1756,17 +1756,14 @@ External Setpoint Generation:
 				<Axis Id="2" CreateSymbols="true" AxisType="1">
 					<Name>Axis 2</Name>
 					<AxisPara>
-						<Dynamic Acceleration="3272.2425" Deceleration="3272.2425" Jerk="9816.7275"/>
-						<Velo RefSearch="21.81495" RefSync="21.81495" SlowManual="109.07475" FastManual="654.4485" Fast="2181.495" Maximum="2181.495"/>
-						<PositionAreaControl Enable="false"/>
-						<TargetPosControl Enable="false"/>
+						<Dynamic Acceleration="3272.24" Deceleration="3272.24" Jerk="9816.73"/>
+						<Velo RefSearch="21.81495" RefSync="21.81495" SlowManual="109.07475" FastManual="654.4485" Fast="2181.495" Maximum="2181.49"/>
+						<PositionAreaControl Enable="false" Range="1000"/>
+						<TargetPosControl Enable="false" Range="1000"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="60" ScaleFactorDenominator="1048576" MaxCount="#xffffffff">
-							<SoftEndMinControl Range="-1000"/>
-							<SoftEndMaxControl Range="1000"/>
-						</EncPara>
+						<EncPara ScaleFactorNumerator="60" ScaleFactorDenominator="1048576" MaxCount="#xffffffff"/>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -1881,7 +1878,7 @@ External Setpoint Generation:
 					</Drive>
 					<Controller Name="Ctrl" CtrType="1">
 						<CtrPara PriorControlFactor="1">
-							<PosDiffControl Enable="false"/>
+							<PosDiffControl Enable="false" Range="15"/>
 							<Observer BandWidth="20"/>
 						</CtrPara>
 					</Controller>
@@ -1904,15 +1901,11 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{4554683B-2838-00F8-B428-ED83CEEADC68}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{7B7FA849-826C-3E9C-BA1E-00C6C71CD075}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
-						<Var>
-							<Name>MAIN.Axis1.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
 							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
@@ -1922,8 +1915,21 @@ External Setpoint Generation:
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.Axis1.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+							<Name>SafetyGlobalVariableList.RUN_STOP</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_ACK</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_ErrACK</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.RestartFBs_TSG</Name>
+							<Comment><![CDATA[ Restart FB in TwinSafe Gr]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -1967,26 +1973,6 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
-					<Vars VarGrpType="2" ContextId="1" AreaNo="17">
-						<Name>SafetyTask Outputs</Name>
-						<Var>
-							<Name>SafetyGlobalVariableList.RUN_STOP</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_ACK</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_ErrACK</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.RestartFBs_TSG</Name>
-							<Comment><![CDATA[ Restart FB in TwinSafe Gr]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-					</Vars>
 					<UnrestoredVarLinks ImportTime="2024-04-25T08:25:46">
 						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
 							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 2">
@@ -1996,6 +1982,42 @@ External Setpoint Generation:
 						<OwnerA Name="OutputSrc" Prefix="TIPC^PLC^PLC Instance" Type="2">
 							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 2">
 								<Link VarA="MAIN.Axis2._Axis.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-04-30T14:37:41">
+						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
+							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 1">
+								<Link VarA="MAIN.Axis1.NcToPlc" TypeA="MC.NCTOPLC_AXIS_REF" InOutA="0" GuidA="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" VarB="Outputs^ToPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^PLC^PLC Instance" Type="2">
+							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 1">
+								<Link VarA="MAIN.Axis1.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-04-30T16:02:47">
+						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
+							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 1">
+								<Link VarA="MAIN.MoveAxis1.Axis1.NcToPlc" TypeA="MC.NCTOPLC_AXIS_REF" InOutA="0" GuidA="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" VarB="Outputs^ToPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^PLC^PLC Instance" Type="2">
+							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 1">
+								<Link VarA="MAIN.MoveAxis1.Axis1.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-05-01T12:36:44">
+						<OwnerA Name="InputDst" Prefix="TIPC^PLC^PLC Instance" Type="1">
+							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 2">
+								<Link VarA="MAIN.GoGoAxis2.AxisSPT._Axis.NcToPlc" TypeA="MC.NCTOPLC_AXIS_REF" InOutA="0" GuidA="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" VarB="Outputs^ToPlc" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^PLC^PLC Instance" Type="2">
+							<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 2">
+								<Link VarA="MAIN.GoGoAxis2.AxisSPT._Axis.PlcToNc" TypeA="MC.PLCTONC_AXIS_REF" InOutA="1" GuidA="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" VarB="Inputs^FromPlc" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -5274,7 +5296,6 @@ External Setpoint Generation:
 		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-0030-0304-1000-040332000403}" Id="#x02030030"/>
 		<MappingInfo Identifier="{08502002-0040-0304-0020-500840000403}" Id="#x02030050" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030060" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{03040040-0040-0304-4000-040340000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CP6700-0001-0050">
 			<OwnerB Name="TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)^Term 9 (AX5805)">
@@ -5321,6 +5342,10 @@ External Setpoint Generation:
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 5 (EL6910)">
 				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.SAFETY_Permission" VarB="StandardInputs^TwinSafeGroup1.PLC_SAFETY_Permission_17"/>
+				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
+				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.ERR_ACK" VarB="StandardOutputs^TwinSafeGroup1.ERR_ACK_5"/>
+				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.RUN_STOP" VarB="StandardOutputs^TwinSafeGroup1.RUN_STOP_6"/>
+				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch1_13"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch2_14"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_STO_State_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_STOState_Ch1_15"/>
@@ -5329,14 +5354,6 @@ External Setpoint Generation:
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_FB" VarB="StandardInputs^TwinSafeGroup1.ERR_FB_8"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_OTHER" VarB="StandardInputs^TwinSafeGroup1.ERR_OTHER_9"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.IN_RUN" VarB="StandardInputs^TwinSafeGroup1.IN_RUN_10"/>
-				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
-				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.ERR_ACK" VarB="StandardOutputs^TwinSafeGroup1.ERR_ACK_5"/>
-				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RUN_STOP" VarB="StandardOutputs^TwinSafeGroup1.RUN_STOP_6"/>
-				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
-			</OwnerB>
-			<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 1">
-				<Link VarA="PlcTask Inputs^MAIN.Axis1.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^MAIN.Axis1.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

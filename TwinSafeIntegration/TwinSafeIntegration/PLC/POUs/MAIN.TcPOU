@@ -3,145 +3,51 @@
   <POU Name="MAIN" Id="{dda73309-53de-02f8-1325-69de66ef1770}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-
-	Axis1 : AXIS_REF;					(* axis reference data structure *)
-	state: MoveState_t;					(* state machine state *)
-
-	PowerAxis1: MC_Power;
-	PowerAxis1Out: ST_McOutputs;		(* debug function block output data *)
-
-	MoveAxis1: MC_MoveAbsolute;
-	MoveAbsoluteOut1: ST_McOutputs;		(* debug function block output data *)
-
-	MoveAxis2: MC_MoveAbsolute;
-	MoveAbsoluteOut2: ST_McOutputs;		(* debug function block output data *)
-
-	Reset: MC_Reset;
-	ResetOut : ST_McOutputs;			(* debug function block output data *)
-	
-	SoERead : FB_SoERead;	
-	SoEReset : FB_SoEReset;
-	
-	
+//	GoGoAxis1 : TestAxis1;
+	GoGoAxis2 : TestAxis2;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[	(* update the axis status at the beginning of each cycle *)
-		Axis1.ReadStatus();
-		SoERead(Axis := Axis1);
-		SoEReset(Axis := Axis1);
-		PowerAxis1(Axis := Axis1);
-		Reset(Axis := Axis1);
-		MoveAxis1(Axis := Axis1);
-		MoveAxis2(Axis := Axis1);
+      <ST><![CDATA[//GoGoAxis1();
+//GoGoAxis2();
+SafetyGlobalVariableList.RUN_STOP := TRUE;
 
+IF SafetyGlobalVariableList.SAFETY_Permission = FALSE THEN
 
-//IF SafetyGlobalVariableList.SAFETY_Permission = FALSE THEN
-
-// resetSafety();
-
-//END_IF		
-		
-		
-IF SafetyGlobalVariableList.SAFETY_Permission = TRUE THEN
+	CASE SafetyGlobalVariableList.SafetySate OF
 	
-	
-	(* move axis using a state machine *)
-	CASE state OF
-
-		MOVESTATE_INIT :	(* initialisation *)
-			(* initialize all function blocks *)
-			MoveAxis1.Execute	:= FALSE;
-			MoveAxis2.Execute	:= FALSE;
-			Reset.Execute		:= FALSE;
-			SoEReset.Execute 	:= FALSE;
-			state				:= MOVESTATE_ENABLE;
-
-		MOVESTATE_ENABLE :
-			PowerAxis1.Enable := TRUE;
-			PowerAxis1.Enable_Positive := TRUE;
-			PowerAxis1.Enable_Negative := TRUE;
-			IF PowerAxis1.Status THEN
-				state := MOVESTATE_FORWARD;
-			ELSIF PowerAxis1.Error THEN
-				state := MOVESTATE_ERROR;
+		0:
+			IF  SafetyGlobalVariableList.ERR_ACK = FALSE THEN
+				SafetyGlobalVariableList.ERR_ACK := TRUE;
+				SafetyGlobalVariableList.SafetySate := 10;
+			ELSE
+				SafetyGlobalVariableList.ERR_ACK := FALSE;
+				SafetyGlobalVariableList.SafetySate := 0;
 			END_IF
-
-		MOVESTATE_FORWARD :		(* start to first position *)
-			MoveAxis1.Position := 1500;		(* start to intermediate tartet position *)
-			MoveAxis1.Velocity := 50;		(* medium velocity level *)
-			MoveAxis1.BufferMode := MC_Buffered;
-			MoveAxis1.Execute := TRUE;
-			IF MoveAxis1.Active  THEN
-				(* axis is executing job but is not yet finished *)
-				MoveAxis1.Execute := FALSE;
-				(* leave this state and buffer a second command *)
-				state := MOVESTATE_NEWTARGETPOSITION;
-			ELSIF MoveAxis1.CommandAborted OR MoveAxis1.Error THEN
-				state := MOVESTATE_ERROR;
+		10:
+			IF  SafetyGlobalVariableList.ERR_ACK = TRUE THEN
+				SafetyGlobalVariableList.ERR_ACK := FALSE;
+				SafetyGlobalVariableList.ERR_ACK_RESETED := TRUE;		
+				SafetyGlobalVariableList.SafetySate := 20;
 			END_IF
-
-		MOVESTATE_NEWTARGETPOSITION :		(* change target position while moving *)
-			(* start a buffered motion command while axis is moving *)
-			MoveAxis2.Position := 5000;		(* start to final target *)
-			MoveAxis2.Velocity := 50;		(* increase velocity *)
-			MoveAxis2.BufferMode := MC_BlendingPrevious; 	(* use velocity of previous command till intermediate target position position *)
-			MoveAxis2.Execute := TRUE;
-			IF MoveAxis2.Done THEN
-				MoveAxis2.Execute := FALSE;
-				state := MOVESTATE_BACKWARDS;
-			ELSIF MoveAxis2.CommandAborted OR MoveAxis2.Error THEN
-				state := MOVESTATE_ERROR;
+		20:
+			IF  SafetyGlobalVariableList.AX5805_ErrACK= FALSE THEN
+				SafetyGlobalVariableList.AX5805_ErrACK:= TRUE;
+				SafetyGlobalVariableList.SafetySate := 30;
+			ELSE
+				SafetyGlobalVariableList.AX5805_ErrACK := FALSE;
+				SafetyGlobalVariableList.SafetySate := 20;
 			END_IF
-
-		MOVESTATE_BACKWARDS :	(* move back to initial position *)
-			MoveAxis1.Position := 100;		(* position close to initial position *)
-			MoveAxis1.Velocity := 50;		(* high velocity *)
-			MoveAxis1.BufferMode := MC_Buffered;
-			MoveAxis1.Execute := TRUE;
-			IF MoveAxis1.Active THEN
-				(* axis is executing job but is not yet finished *)
-				MoveAxis1.Execute := FALSE;
-				(* leave this state and buffer a second command *)
-				state := MOVESTATE_BACKWARDSSLOW;
-			ELSIF MoveAxis1.CommandAborted OR MoveAxis1.Error THEN
-				state := MOVESTATE_ERROR;
+		30:
+			IF  SafetyGlobalVariableList.AX5805_ErrACK = TRUE THEN
+				SafetyGlobalVariableList.AX5805_ErrACK := FALSE;
+				SafetyGlobalVariableList.AX5805_ErrACK_RESETED := TRUE;		
+				SafetyGlobalVariableList.SafetySate := 40;
 			END_IF
-
-		MOVESTATE_BACKWARDSSLOW :	(* move back to initial position *)
-			(* start a buffered motion command while axis is moving *)
-			MoveAxis2.Position := 0;	(* back to initial position *)
-			MoveAxis2.Velocity := 50; 	(* slow velocity *)
-			MoveAxis2.BufferMode := MC_BlendingNext; 	(* use velocity from first target position *)
-			MoveAxis2.Execute := TRUE;
-			IF MoveAxis2.Done THEN
-				MoveAxis2.Execute := FALSE;
-				state := MOVESTATE_FORWARD;
-			ELSIF MoveAxis2.CommandAborted OR MoveAxis2.Error THEN
-				state := MOVESTATE_ERROR;
-			END_IF
-
-		MOVESTATE_ERROR :
-			IF Axis1.Status.Error OR SoERead.Error THEN
-				state := MOVESTATE_RESET;	(* axis error re quires reset *)
-			ELSE 
-				state := MOVESTATE_INIT;		(* function block errors don't need a reset *)
-			END_IF
-
-		MOVESTATE_RESET :
-			Reset.Execute := TRUE; 		
-			SoEReset.Execute := TRUE;
-			IF Reset.Done THEN
-				state := MOVESTATE_INIT;
-			ELSIF Reset.Error THEN
-				state := MOVESTATE_INIT; (* can't do anything here *)
-			END_IF
-
+		40:	
+			//
 	END_CASE
 
 END_IF
-
-	
-
 
 
 
@@ -152,26 +58,26 @@ END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="1154" Count="6" />
-      <LineId Id="1151" Count="1" />
-      <LineId Id="1163" Count="0" />
-      <LineId Id="1153" Count="0" />
-      <LineId Id="1168" Count="1" />
-      <LineId Id="1167" Count="0" />
-      <LineId Id="1166" Count="0" />
-      <LineId Id="1164" Count="1" />
-      <LineId Id="912" Count="0" />
-      <LineId Id="1138" Count="0" />
-      <LineId Id="1111" Count="0" />
-      <LineId Id="969" Count="7" />
-      <LineId Id="1162" Count="0" />
-      <LineId Id="977" Count="73" />
-      <LineId Id="1144" Count="0" />
-      <LineId Id="1161" Count="0" />
-      <LineId Id="1052" Count="6" />
-      <LineId Id="963" Count="0" />
-      <LineId Id="920" Count="3" />
-      <LineId Id="925" Count="6" />
+      <LineId Id="921" Count="2" />
+      <LineId Id="951" Count="0" />
+      <LineId Id="956" Count="4" />
+      <LineId Id="967" Count="0" />
+      <LineId Id="990" Count="1" />
+      <LineId Id="1010" Count="0" />
+      <LineId Id="1012" Count="1" />
+      <LineId Id="968" Count="1" />
+      <LineId Id="993" Count="1" />
+      <LineId Id="1019" Count="0" />
+      <LineId Id="1018" Count="0" />
+      <LineId Id="992" Count="0" />
+      <LineId Id="996" Count="0" />
+      <LineId Id="1020" Count="11" />
+      <LineId Id="1009" Count="0" />
+      <LineId Id="1035" Count="0" />
+      <LineId Id="1033" Count="0" />
+      <LineId Id="987" Count="1" />
+      <LineId Id="943" Count="2" />
+      <LineId Id="927" Count="4" />
       <LineId Id="14" Count="0" />
     </LineIds>
   </POU>
