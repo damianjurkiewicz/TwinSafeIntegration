@@ -23,6 +23,10 @@
     <Compile Include="DUTs\MoveState_t.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\IO.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\SafetyGlobalVariableList.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>

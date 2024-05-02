@@ -3,11 +3,13 @@
   <POU Name="MAIN" Id="{dda73309-53de-02f8-1325-69de66ef1770}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	GoGoAxis1 : TestAxis1;
+//	GoGoAxis1 : TestAxis1;
 	GoGoAxis2 : TestAxis2;
+
+
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[GoGoAxis1();
+      <ST><![CDATA[//GoGoAxis1();
 GoGoAxis2.CyclicLogic();
 GoGoAxis2.MoveAxis();
 

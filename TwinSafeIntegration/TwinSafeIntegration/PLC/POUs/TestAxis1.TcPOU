@@ -10,6 +10,7 @@ VAR
 //	Move_Y_MC_Axis1: MC_MoveAbsolute;
 //	Move_X_MC_Axis1: MC_MoveAbsolute;
 //	ResetAxis1: MC_Reset;
+//	HomeAxis1: MC_Home;
 
 //	SoEReadAxis1 : FB_SoERead;
 //	SoEResetAxis1 : FB_SoEReset;
@@ -30,7 +31,7 @@ END_VAR
 //		ResetAxis1(Axis := Axis1);
 //		Move_X_MC_Axis1(Axis := Axis1);
 //		Move_Y_MC_Axis1(Axis := Axis1);
-		
+//		HomeAxis1(Axis := Axis1, bCalibrationCam := IO.DI4);
 
 ////IF SafetyGlobalVariableList.SAFETY_Permission = FALSE THEN
 
@@ -57,7 +58,9 @@ END_VAR
 //			PowerAxis1.Enable := TRUE;
 //			PowerAxis1.Enable_Positive := TRUE;
 //			PowerAxis1.Enable_Negative := TRUE;
-//			IF PowerAxis1.Status THEN
+//			HomeAxis1.Execute := TRUE;
+
+//			IF PowerAxis1.Status AND HomeAxis1.Done THEN
 //				StateAxis1 := MOVESTATE_FORWARD;
 //			ELSIF PowerAxis1.Error THEN
 //				StateAxis1 := MOVESTATE_ERROR;
@@ -65,7 +68,7 @@ END_VAR
 
 //		MOVESTATE_FORWARD :		(* start to first position *)
 //			Move_X_MC_Axis1.Position := 1500;		(* start to intermediate tartet position *)
-//			Move_X_MC_Axis1.Velocity := 50;		(* medium velocity level *)
+//			Move_X_MC_Axis1.Velocity := 1500;		(* medium velocity level *)
 //			Move_X_MC_Axis1.BufferMode := MC_Buffered;
 //			Move_X_MC_Axis1.Execute := TRUE;
 //			IF Move_X_MC_Axis1.Active  THEN
@@ -80,7 +83,7 @@ END_VAR
 //		MOVESTATE_NEWTARGETPOSITION :		(* change target position while moving *)
 //			(* start a buffered motion command while axis is moving *)
 //			Move_Y_MC_Axis1.Position := 5000;		(* start to final target *)
-//			Move_Y_MC_Axis1.Velocity := 50;		(* increase velocity *)
+//			Move_Y_MC_Axis1.Velocity := 2000;		(* increase velocity *)
 //			Move_Y_MC_Axis1.BufferMode := MC_BlendingPrevious; 	(* use velocity of previous command till intermediate target position position *)
 //			Move_Y_MC_Axis1.Execute := TRUE;
 //			IF Move_Y_MC_Axis1.Done THEN
@@ -138,7 +141,10 @@ END_VAR
 //END_IF]]></ST>
     </Implementation>
     <LineIds Name="TestAxis1">
-      <LineId Id="1359" Count="112" />
+      <LineId Id="1359" Count="34" />
+      <LineId Id="1495" Count="0" />
+      <LineId Id="1491" Count="0" />
+      <LineId Id="1394" Count="77" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>

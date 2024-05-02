@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="IO" Id="{4cebbd09-38be-0f13-3abf-5278b8750606}">
+    <Declaration><![CDATA[VAR_GLOBAL
+
+	DI1			AT%I*		:	BOOL;
+	DI2			AT%I*		:	BOOL;
+	DI3			AT%I*		:	BOOL;
+	DI4			AT%I*		:	BOOL;
+	DI5			AT%I*		:	BOOL;
+	DI6			AT%I*		:	BOOL;
+	DI7			AT%I*		:	BOOL;
+	DI8			AT%I*		:	BOOL;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

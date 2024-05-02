@@ -33,7 +33,7 @@ END_VAR
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AxisSPT.CyclicLogic();
+        <ST><![CDATA[      AxisSPT.CyclicLogic();
 
 IF SafetyGlobalVariableList.SAFETY_Permission = TRUE THEN
 
@@ -45,11 +45,18 @@ IF SafetyGlobalVariableList.SAFETY_Permission = TRUE THEN
 		END_IF
 	10:
 		IF AxisSPT.Enabled THEN
-			State := State + 10;
+			AxisSPT.MoveVelocity( -5, TRUE);	
+		
+			IF IO.DI4 = TRUE THEN
+				AxisSPT.Home();
+				State := State + 10;
+			END_IF
 		END_IF
+
+	
 	20:
 		AxisSPT.Velocity := 10;
-		IF AxisSPT.MoveAbsolute(900, FALSE) THEN
+		IF AxisSPT.MoveAbsolute(5000, FALSE) THEN
 			State := State + 10;
 		END_IF
 
@@ -60,6 +67,9 @@ IF SafetyGlobalVariableList.SAFETY_Permission = TRUE THEN
 
 	40:
 		AxisSPT.Trace('****Done****'); 
+
+	50:
+		//
 
 	END_CASE
 
@@ -78,10 +88,20 @@ END_IF	]]></ST>
     <LineIds Name="TestAxis2.MoveAxis">
       <LineId Id="18" Count="1" />
       <LineId Id="7" Count="3" />
-      <LineId Id="20" Count="7" />
+      <LineId Id="20" Count="6" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="54" Count="0" />
       <LineId Id="36" Count="10" />
       <LineId Id="28" Count="0" />
       <LineId Id="31" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="51" Count="0" />
       <LineId Id="35" Count="0" />
       <LineId Id="16" Count="1" />
       <LineId Id="5" Count="0" />
