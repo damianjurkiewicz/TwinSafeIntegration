@@ -3,83 +3,87 @@
   <POU Name="TestAxis2" Id="{a0c17cd9-94fa-075e-39a4-23290b5b7dd1}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK TestAxis2 EXTENDS FB_ComponentBase
 VAR
-//	AxisSPT : FB_BasicAxis;
-	State : INT;
+	AxisSPT : FB_BasicAxis;
+	State 	: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="CyclicLogic" Id="{c9c4b5be-abd3-0182-3e82-19cdf5c67f92}">
-      <Declaration><![CDATA[//! @summary This method serves as the entry point for all underlying FB logic
-METHOD PUBLIC CyclicLogic
+      <Declaration><![CDATA[METHOD PUBLIC CyclicLogic
+VAR	
 
-//! @description This method should be called cyclically by descendant function blocks by invoking <c>SUPER^.CyclicLogic()</c>.  Alternatively, the contents of this method could be reimplemented entirely in which case a call to this method would not be necessary.]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
-IF SafetyGlobalVariableList.SAFETY_Permission = TRUE THEN
-
-TRACE('CHUJ');
-
-CASE State OF
-
-	0:
-	//INIT
-	THIS^.Trace('Tutaj');
-//		AxisSPT.Reset();
-//		AxisSPT.Disable();
-//		IF AxisSPT.Enabled = FALSE THEN
-//			State := 10;
-//		END_IF
-
-	10:
-	THIS^.Trace('Chuj');
-//	10:
-//	//ENABLE
-//		AxisSPT.Enable();
-//		IF AxisSPT.Enabled THEN
-//			State := 20;
-//		ELSIF AxisSPT.Error THEN
-//			State := 69;
-//		END_IF
-//	20:
-//	//MOVE
-//		AxisSPT.Velocity := 2; 
-//		AxisSPT.MoveRelative(50, FALSE);
-//		State := 30;
-//	69:
-//		THIS^.Trace('chuj');
-
-END_CASE
-
-END_IF	
-
-SUPER^.CyclicLogic();]]></ST>
+        <ST><![CDATA[SUPER^.CyclicLogic();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Initialize" Id="{532ca002-4980-0ab0-2b3b-0bd5bc2f69c8}">
-      <Declaration><![CDATA[//! @summary Basic component initialization logic
-METHOD PROTECTED Initialize : BOOL;
+      <Declaration><![CDATA[METHOD PROTECTED Initialize : BOOL;
 
-//! @description This method is called by <c>CyclicLogic()</c> as required]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.Initialize();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveAxis" Id="{04f99da4-5f65-039d-1e83-9e0b0d26541f}">
+      <Declaration><![CDATA[METHOD MoveAxis
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AxisSPT.CyclicLogic();
+
+IF SafetyGlobalVariableList.SAFETY_Permission = TRUE THEN
+
+	CASE State OF
+		
+	00:
+		IF AxisSPT.Enable() THEN
+			State := State + 10;
+		END_IF
+	10:
+		IF AxisSPT.Enabled THEN
+			State := State + 10;
+		END_IF
+	20:
+		AxisSPT.Velocity := 10;
+		IF AxisSPT.MoveAbsolute(900, FALSE) THEN
+			State := State + 10;
+		END_IF
+
+	30:
+		IF NOT AxisSPT.Busy THEN
+			State := State + 10;
+		END_IF
+
+	40:
+		AxisSPT.Trace('****Done****'); 
+
+	END_CASE
+
+END_IF	]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="TestAxis2">
       <LineId Id="167" Count="0" />
     </LineIds>
     <LineIds Name="TestAxis2.CyclicLogic">
-      <LineId Id="134" Count="1" />
-      <LineId Id="169" Count="0" />
-      <LineId Id="136" Count="0" />
-      <LineId Id="168" Count="0" />
-      <LineId Id="137" Count="30" />
-      <LineId Id="26" Count="0" />
-      <LineId Id="131" Count="0" />
       <LineId Id="130" Count="0" />
     </LineIds>
     <LineIds Name="TestAxis2.Initialize">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="TestAxis2.MoveAxis">
+      <LineId Id="18" Count="1" />
+      <LineId Id="7" Count="3" />
+      <LineId Id="20" Count="7" />
+      <LineId Id="36" Count="10" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="16" Count="1" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

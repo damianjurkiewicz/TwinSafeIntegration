@@ -6,9 +6,54 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[
+IF SafetyGlobalVariableList.RUN_STOP = TRUE THEN
+
+IF SafetyGlobalVariableList.SAFETY_Permission = FALSE THEN
+
+	CASE SafetyGlobalVariableList.SafetySate OF
+	
+		0:
+			IF  SafetyGlobalVariableList.ERR_ACK = FALSE THEN
+				SafetyGlobalVariableList.ERR_ACK := TRUE;
+				SafetyGlobalVariableList.SafetySate := 10;
+			ELSE
+				SafetyGlobalVariableList.ERR_ACK := FALSE;
+				SafetyGlobalVariableList.SafetySate := 0;
+			END_IF
+		10:
+			IF  SafetyGlobalVariableList.ERR_ACK = TRUE THEN
+				SafetyGlobalVariableList.ERR_ACK := FALSE;
+				SafetyGlobalVariableList.ERR_ACK_RESETED := TRUE;		
+				SafetyGlobalVariableList.SafetySate := 20;
+			END_IF
+		20:
+			IF  SafetyGlobalVariableList.AX5805_ErrACK= FALSE THEN
+				SafetyGlobalVariableList.AX5805_ErrACK:= TRUE;
+				SafetyGlobalVariableList.SafetySate := 30;
+			ELSE
+				SafetyGlobalVariableList.AX5805_ErrACK := FALSE;
+				SafetyGlobalVariableList.SafetySate := 20;
+			END_IF
+		30:
+			IF  SafetyGlobalVariableList.AX5805_ErrACK = TRUE THEN
+				SafetyGlobalVariableList.AX5805_ErrACK := FALSE;
+				SafetyGlobalVariableList.AX5805_ErrACK_RESETED := TRUE;		
+				SafetyGlobalVariableList.SafetySate := 40;
+			END_IF
+		40:	
+			//
+	END_CASE
+
+END_IF
+
+END_IF
+]]></ST>
     </Implementation>
     <LineIds Name="SAFETY">
+      <LineId Id="9" Count="39" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="52" Count="0" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
