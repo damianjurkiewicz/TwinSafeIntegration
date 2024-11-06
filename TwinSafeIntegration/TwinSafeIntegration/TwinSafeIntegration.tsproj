@@ -1581,7 +1581,7 @@ External Setpoint Generation:
 		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff0000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffff0000ff0000ff0000ff00008080800000ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffff0000c0c0c0c0c0c0c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0ff00008080800000000000000000000000000000000000000000000000000000ff0000ffff00ffff0000c0c0c0c0c0c0ff0000808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0ff0000ff0000c0c0c0808080000000ff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{2CF010E5-ED4F-4193-9078-E28FF72F1ACE}" TargetNetId="5.81.155.22.1.1" ShowHideConfigurations="#x346">
+	<Project ProjectGUID="{2CF010E5-ED4F-4193-9078-E28FF72F1ACE}" Target64Bit="true" ShowHideConfigurations="#x346">
 		<System>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -1590,7 +1590,13 @@ External Setpoint Generation:
 				<Task Id="4" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
 					<Name>SafetyTask</Name>
 				</Task>
+				<Task Id="7" Priority="30" CycleTime="2000000" AmsPort="352" DisableFpExceptions="true" AdtTasks="true">
+					<Name>VISU_TASK</Name>
+				</Task>
 			</Tasks>
+			<TypeSystem>
+				<AdditionalTmcFile Name="PLC" File="..\..\..\Seedra\Seedra\SeedraPLC\Machine\Events\PLC.tmc"/>
+			</TypeSystem>
 		</System>
 		<Motion>
 			<NC>
@@ -1901,34 +1907,43 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{6A820F01-27AC-4543-CE7F-922FC6A6CE55}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{ACB9A7D0-2A0B-BC88-B37E-195746DD02D7}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
-					<Vars VarGrpType="1">
-						<Name>PlcTask Inputs</Name>
+					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
+						<Name>SafetyTask Inputs</Name>
 						<Var>
-							<Name>MAIN.GoGoAxis2.AxisSPT._Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+							<Name>IO.DI1</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
-							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
+							<Name>IO.DI2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI3</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>IO.DI4</Name>
 							<Type>BOOL</Type>
 						</Var>
-					</Vars>
-					<Vars VarGrpType="2" AreaNo="1">
-						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.GoGoAxis2.AxisSPT._Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+							<Name>IO.DI5</Name>
+							<Type>BOOL</Type>
 						</Var>
-					</Vars>
-					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
-						<Name>SafetyTask Inputs</Name>
+						<Var>
+							<Name>IO.DI6</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI7</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI8</Name>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.ERR_FB</Name>
 							<Comment><![CDATA[TWinSafe Group]]></Comment>
@@ -1968,31 +1983,8 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>IO.DI1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI3</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI5</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI6</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI7</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI8</Name>
+							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
+							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2090,10 +2082,20 @@ External Setpoint Generation:
 							<Priority>21</Priority>
 							<CycleTime>10000000</CycleTime>
 						</Context>
+						<Context>
+							<Id>2</Id>
+							<Name>VISU_TASK</Name>
+							<ManualConfig>
+								<OTCID>#x02010070</OTCID>
+							</ManualConfig>
+							<Priority>30</Priority>
+							<CycleTime>200000000</CycleTime>
+						</Context>
 					</Contexts>
 					<TaskPouOids>
 						<TaskPouOid Prio="20" OTCID="#x08502001"/>
 						<TaskPouOid Prio="21" OTCID="#x08502002"/>
+						<TaskPouOid Prio="30" OTCID="#x08502003"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
@@ -2116,7 +2118,7 @@ External Setpoint Generation:
 			</Project>
 		</Safety>
 		<Io>
-			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="5.81.155.22.4.1" RemoteName="CP6700-0001-0050" InfoImageId="3">
+			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="192.168.1.42.4.1" RemoteName="CP6700-0001-0050" InfoImageId="3">
 				<Name>CP6700-0001-0050</Name>
 				<AddressInfo>
 					<Pnp>
@@ -2130,9 +2132,6 @@ External Setpoint Generation:
 				</Image>
 				<Image Id="4" AddrType="10" ImageType="3">
 					<Name>Image-2</Name>
-				</Image>
-				<Image Id="5" AddrType="10" ImageType="3">
-					<Name>Image-3</Name>
 				</Image>
 				<Box Id="1" BoxType="9099">
 					<Name>Term 1 (EK1100)</Name>
@@ -5345,14 +5344,10 @@ External Setpoint Generation:
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500841000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500852000403}" Id="#x02030040"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0120-500841000403}" Id="#x02030030"/>
 		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-0030-0304-1000-040333000403}" Id="#x02030080"/>
-		<MappingInfo Identifier="{08502002-0040-0304-0020-500840000403}" Id="#x02030050" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{08502002-0050-0304-0020-500850000403}" Id="#x02030070" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030060" Watchdog="14000000040000000400000004000000"/>
-		<MappingInfo Identifier="{03040050-0050-0304-5000-040350000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{00000000-0030-0304-1000-040332000403}" Id="#x02030040"/>
+		<MappingInfo Identifier="{03040040-0040-0304-4000-040340000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CP6700-0001-0050">
 			<OwnerB Name="TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)^Term 9 (AX5805)">
 				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionInputs^TwinSafeGroup1.AX5805_4 TxPDO" VarB="Module 1 (Safety Process Data, 2 axis)^Outputs (Controlword)^FSOE"/>
@@ -5397,17 +5392,16 @@ External Setpoint Generation:
 		</OwnerA>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 2 (EL1008)">
-				<Link VarA="PlcTask Inputs^IO.DI4" VarB="Channel 4^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI1" VarB="Channel 1^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI2" VarB="Channel 2^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI3" VarB="Channel 3^Input"/>
+				<Link VarA="SafetyTask Inputs^IO.DI4" VarB="Channel 4^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI5" VarB="Channel 5^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI6" VarB="Channel 6^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI7" VarB="Channel 7^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI8" VarB="Channel 8^Input"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 5 (EL6910)">
-				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.SAFETY_Permission" VarB="StandardInputs^TwinSafeGroup1.PLC_SAFETY_Permission_17"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch1_13"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch2_14"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_STO_State_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_STOState_Ch1_15"/>
@@ -5416,14 +5410,11 @@ External Setpoint Generation:
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_FB" VarB="StandardInputs^TwinSafeGroup1.ERR_FB_8"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_OTHER" VarB="StandardInputs^TwinSafeGroup1.ERR_OTHER_9"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.IN_RUN" VarB="StandardInputs^TwinSafeGroup1.IN_RUN_10"/>
+				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.SAFETY_Permission" VarB="StandardInputs^TwinSafeGroup1.PLC_SAFETY_Permission_17"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.ERR_ACK" VarB="StandardOutputs^TwinSafeGroup1.ERR_ACK_5"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RUN_STOP" VarB="StandardOutputs^TwinSafeGroup1.RUN_STOP_6"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
-			</OwnerB>
-			<OwnerB Name="TINC^NC-Task SAF^Axes^Axis 2">
-				<Link VarA="PlcTask Inputs^MAIN.GoGoAxis2.AxisSPT._Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^MAIN.GoGoAxis2.AxisSPT._Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
