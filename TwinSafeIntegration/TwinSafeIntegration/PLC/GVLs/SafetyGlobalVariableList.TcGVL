@@ -16,7 +16,7 @@
 	ERR_ACK						AT %Q* :BOOL;
 	
 	eStop						AT %I* :BOOL;
-	
+	eStopHMI					:BOOL;
 	//AX580x
 	AX5805_Error_Ch1			AT %I* :BOOL;
 	AX5805_Error_Ch2			AT %I* :BOOL;

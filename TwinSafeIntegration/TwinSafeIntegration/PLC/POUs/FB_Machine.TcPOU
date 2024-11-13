@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Machine" Id="{bff47975-faf2-4bb5-875e-d6d4ee5b95d2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Machine EXTENDS FB_PackML_BaseModule // IMPLEMENTS I_ControlsProductionRate
+VAR
+    // Sub Modules
+    GantryXYZ   : FB_GantryXYZ  := (Name := 'Gantry', LogStateChanges := TRUE);
+
+    //Initial List of Components
+    ipComponents_Init : ARRAY[1..Parameters_PackML_Base.MAX_NO_OF_COMPONENTS] OF I_ComponentBase := [];
+
+	//Alarms for this module
+	MachineAlarms : ARRAY[1..MACHINE_ALARM_COUNT] OF FB_TcAlarm;
+
+END_VAR
+
+VAR CONSTANT
+    MACHINE_ALARM_COUNT : INT := 6;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="States" Id="{14749d6a-ee67-0bbd-3796-a15e8ef33a9c}" />
+    <Method Name="Clearing" Id="{548ee220-f843-0f76-3988-aa079bfe6b96}" FolderPath="States\">
+      <Declaration><![CDATA[
+METHOD PROTECTED Clearing
+VAR
+	i				: UDINT;
+	SubModulesReady : BOOL := TRUE;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE SequenceState OF
+    0:
+        NoStateTasksToComplete := FALSE;
+        SequenceState          := SequenceState + 10;
+    10:
+		//Leave Aborted thanks to this
+		MachineAlarms[E_Seedra.EmergencyStop].Clear(0, 0);
+        SequenceState := SequenceState + 10;
+    20:
+
+		SequenceState := SequenceState + 10;
+	30: 
+	
+		SequenceState := SequenceState + 10;
+	40:
+		StateTasksComplete := TRUE; 
+			 
+END_CASE
+
+SUPER^.Clearing();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CreateEvents" Id="{54c2f52e-59a8-427a-bbd8-779066223821}">
+      <Declaration><![CDATA[METHOD PROTECTED CreateEvents
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Add your event creation here
+F_CreateAllEventsInClass(Alarms     := MachineAlarms,
+                         ClassSize  := SIZEOF(TC_Events.Seedra),
+                         pInitEvent := ADR(TC_EVENTS.Seedra.InitReferenceEvent),
+                         Prefix     := Name);
+// Super call to base
+SUPER^.CreateEvents();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CyclicLogic" Id="{501afb04-97c8-41e9-b2b1-99e5454c568d}">
+      <Declaration><![CDATA[METHOD CyclicLogic
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF NOT _InitComplete THEN
+    _InitComplete := Initialize();
+    RETURN;
+END_IF
+
+SUPER^.CyclicLogic();
+
+//Here the alarms will raise and clear on its own if the input changes
+IF SafetyGlobalVariableList.eStopHMI OR SafetyGlobalVariableList.eStop AND NOT MachineAlarms[E_Seedra.EmergencyStop].bRaised THEN
+	RaiseAlarmWithStrings(MachineAlarms[E_Seedra.EmergencyStop],'','');
+//	ELSIF NOT SafetyGlobalVariableList.eStop THEN
+//	MachineAlarms[E_Seedra.EmergencyStop].Clear(0, 0);
+
+END_IF
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Execute" Id="{168286fe-3a0e-0409-222b-6ca1d90cdd85}" FolderPath="States\">
+      <Declaration><![CDATA[METHOD PROTECTED Execute
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE _CurrentMode OF
+
+	//=================================PRODUCTION MODE==================================
+	E_PMLUnitMode.ePMLUnitMode_Production:
+		CASE SequenceState OF
+			0:
+				NoStateTasksToComplete := FALSE;
+
+				//Advance Gantry to Resetting (Homing)
+				GantryXYZ.ChangeState(E_PMLCommand.ePMLCommand_Start);
+				
+				SequenceState := SequenceState + 10;
+					
+			10:
+				StateTasksComplete := TRUE;
+				StateComplete();
+				
+			
+		END_CASE
+
+	//=================================MAINTENANCE & MANUAL MODE==================================
+	E_PMLUnitMode.ePMLUnitMode_Maintenance, E_PMLUnitMode.ePMLUnitMode_Manual:
+		;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HMICommunication" Id="{7f33b740-9a2e-008d-3de8-59154ebba8e8}">
+      <Declaration><![CDATA[//! @summary Provides interlocks for HMI control and updates HMI status information for this module
+METHOD PROTECTED HMICommunication
+
+//! @description This method is called cyclically by <c>CyclicLogic()</c>]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF SafetyGlobalVariableList.eStopHMI THEN
+	PackMLBaseModule_HMI.Status.Error := TRUE;
+	THIS^._Error := TRUE;
+END_IF
+
+
+
+SUPER^.HMICommunication();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HMIPermissions" Id="{6bc472f3-6dc4-40c5-9d82-141f6549cd29}">
+      <Declaration><![CDATA[METHOD PROTECTED HMIPermissions
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//General Mode Based Monitoring and handling of HMI control
+CASE _CurrentMode OF
+   
+ E_PMLUnitMode.ePMLUnitMode_Production:
+        CASE _CurrentState OF
+            E_PMLState.ePMLState_Stopped:
+				AllowHMIControl(ThisModuleOnly := FALSE);
+            E_PMLState.ePMLState_Idle:
+				AllowHMIControl(ThisModuleOnly := FALSE);
+            E_PMLState.ePMLState_Suspended:
+         		AllowHMIControl(ThisModuleOnly := FALSE);
+            E_PMLState.ePMLState_Execute:
+            	AllowHMIControl(ThisModuleOnly := FALSE); 
+            E_PMLState.ePMLState_Aborted:
+                AllowHMIControl(ThisModuleOnly := FALSE); 
+            E_PMLState.ePMLState_Held:
+                AllowHMIControl(ThisModuleOnly := FALSE); 
+            E_PMLState.ePMLState_Complete:
+          		AllowHMIControl(ThisModuleOnly := FALSE); 
+        END_CASE
+		
+    E_PMLUnitMode.ePMLUnitMode_Manual:
+        AllowHMIControl(ThisModuleOnly := FALSE); 
+	E_PMLUnitMode.ePMLUnitMode_Maintenance:
+        AllowHMIControl(ThisModuleOnly := FALSE); 
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialize" Id="{a2d063e6-ff99-4b28-b815-6d16f8c10a5a}">
+      <Declaration><![CDATA[METHOD PROTECTED Initialize : BOOL
+VAR
+    i : UDINT; //Generic iteration value
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Initialize := FALSE;
+CASE DescendantSequenceState OF
+    0:
+		RegisterSubmodule(GantryXYZ);
+
+        _LogModeChanges         := FALSE;
+        _LogStateChanges        := FALSE;
+  
+	    DescendantSequenceState := DescendantSequenceState + 10;
+    10:
+        DescendantSequenceState := DescendantSequenceState + 10;
+    20:
+        //Copy Mode names
+        FOR i := 1 TO 3 DO
+            ModeNames[i] := F_UnitModeToString(UDINT_TO_DINT(i));
+        END_FOR
+
+        DescendantSequenceState := DescendantSequenceState + 10;
+    30:
+        // Initialize Recipes 
+
+        DescendantSequenceState := DescendantSequenceState + 10;
+    40:
+        //Call the Super
+        IF SUPER^.Initialize() THEN
+            DescendantSequenceState := DescendantSequenceState + 10;
+        END_IF
+    50:
+        Initialize := TRUE;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Resetting" Id="{81000eb7-1a87-05e9-2d67-335ddaa2775e}" FolderPath="States\">
+      <Declaration><![CDATA[METHOD PROTECTED Resetting
+VAR
+	i				: UDINT;
+	SubModulesReady : BOOL := TRUE;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE _CurrentMode OF
+
+	//=================================PRODUCTION MODE==================================
+	E_PMLUnitMode.ePMLUnitMode_Production:
+		CASE SequenceState OF
+			0:
+				NoStateTasksToComplete := FALSE;
+
+				//Advance Gantry to Resetting (Homing)
+				GantryXYZ.ChangeState(E_PMLCommand.ePMLCommand_Reset);
+				
+				SequenceState := SequenceState + 10;
+					
+			10:
+				StateTasksComplete := TRUE;
+				SUPER^.Resetting();
+				
+			
+		END_CASE
+
+	//=================================MAINTENANCE & MANUAL MODE==================================
+	E_PMLUnitMode.ePMLUnitMode_Maintenance, E_PMLUnitMode.ePMLUnitMode_Manual:
+		;
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SubModuleMonitor" Id="{61929dcc-cbb9-06ca-30d3-7a2a970f3f6e}">
+      <Declaration><![CDATA[//! @summary This method monitors <b>submodules</b> within this PackML module and initiates fault responses as required
+METHOD PROTECTED SubModuleMonitor : BOOL
+VAR
+	AlarmResponses : ARRAY[0..4] OF E_AlarmResponse; //Temporary response array	
+	i			   : UDINT;
+END_VAR
+
+//! @description This method is called cyclically by <c>CyclicLogic()</c>]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Check the sub Modules for Alarm Severity
+SUPER^.SubModuleMonitor();
+
+//Check the alarms at the machine level
+_CurrentAlarmSeverity := F_GetMaxSeverityRaised(Alarms := MachineAlarms, CurrentSeverity := _CurrentAlarmSeverity);
+
+//Check the severity of the machine level alarms
+IF _CurrentState <> E_PMLState.ePMLState_Aborted AND _CurrentState <> E_PMLState.ePMLState_Aborting AND _CurrentState <> E_PMLState.ePMLState_Clearing  AND
+   _CurrentState <> E_PMLState.ePMLState_Stopped AND _CurrentState <> E_PMLState.ePMLState_Stopping THEN
+    AlarmResponses := _ParentFaultResponseDefinitions;
+    CASE AlarmResponses[CurrentAlarmSeverity] OF
+        E_AlarmResponse.Abort_ImmediateError:
+            AbortImmediateError(Name, TRUE);
+			AbortImmediateError(Name, FALSE);
+        E_AlarmResponse.Abort_Immediate:
+            AbortImmediate();
+        E_AlarmResponse.Stop_Immediate:
+            StopImmediate();
+        E_AlarmResponse.Stop_Controlled:
+            StopControlled();
+        E_AlarmResponse.Hold_Immediate:
+            HoldImmediate();
+        E_AlarmResponse.Suspend_Immediate:
+            SuspendImmediate();
+        E_AlarmResponse.Suspend_Controlled:
+            SuspendControlled();
+        E_AlarmResponse.NoResponse:
+            ;
+    END_CASE
+ELSIF _CurrentState = E_PMLState.ePMLState_Stopped OR _CurrentState = E_PMLState.ePMLState_Stopping THEN
+    AlarmResponses := _ParentFaultResponseDefinitions;
+    CASE AlarmResponses[CurrentAlarmSeverity] OF
+        E_AlarmResponse.Abort_ImmediateError:
+            AbortImmediateError(Name, TRUE);
+        E_AlarmResponse.Abort_Immediate:
+            AbortImmediate();
+        E_AlarmResponse.NoResponse:
+            ;
+    END_CASE
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Machine">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.Clearing">
+      <LineId Id="28" Count="4" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="35" Count="1" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="27" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.CreateEvents">
+      <LineId Id="3" Count="4" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.CyclicLogic">
+      <LineId Id="18" Count="0" />
+      <LineId Id="3" Count="5" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.Execute">
+      <LineId Id="24" Count="22" />
+      <LineId Id="23" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.HMICommunication">
+      <LineId Id="8" Count="1" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.HMIPermissions">
+      <LineId Id="3" Count="2" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="6" Count="1" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="12" Count="11" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.Initialize">
+      <LineId Id="3" Count="3" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="9" Count="2" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="40" Count="18" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.Resetting">
+      <LineId Id="28" Count="6" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="35" Count="4" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="52" Count="4" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="62" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Machine.SubModuleMonitor">
+      <LineId Id="10" Count="12" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="23" Count="24" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

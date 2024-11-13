@@ -12,6 +12,11 @@
 	DI7			AT%I*		:	BOOL;
 	DI8			AT%I*		:	BOOL;
 
+	ProximitySensorX			AT%I*		:	BOOL;
+	ProximitySensorY			AT%I*		:	BOOL;
+	ProximitySensorZ			AT%I*		:	BOOL;
+	kot : UDINT;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
