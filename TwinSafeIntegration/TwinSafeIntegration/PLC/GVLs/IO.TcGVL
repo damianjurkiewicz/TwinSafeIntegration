@@ -3,6 +3,7 @@
   <GVL Name="IO" Id="{4cebbd09-38be-0f13-3abf-5278b8750606}">
     <Declaration><![CDATA[VAR_GLOBAL
 
+//Terminal EL1008
 	DI1			AT%I*		:	BOOL;
 	DI2			AT%I*		:	BOOL;
 	DI3			AT%I*		:	BOOL;
@@ -15,8 +16,7 @@
 	ProximitySensorX			AT%I*		:	BOOL;
 	ProximitySensorY			AT%I*		:	BOOL;
 	ProximitySensorZ			AT%I*		:	BOOL;
-	kot : UDINT;
-	
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

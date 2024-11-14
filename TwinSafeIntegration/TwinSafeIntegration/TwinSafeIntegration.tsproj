@@ -2369,7 +2369,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{9E91C719-30F0-2A2C-2F90-C97F40B47AD6}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{5CB564E1-F5A0-8F8C-A7A3-5B321628BADD}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2385,10 +2385,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.Seedra.GantryXYZ.AxisZ.BasicAxis._Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI4</Name>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.eStop</Name>
@@ -2421,46 +2417,6 @@ External Setpoint Generation:
 					</Vars>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 						<Name>SafetyTask Inputs</Name>
-						<Var>
-							<Name>IO.DI1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI3</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI5</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI6</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI7</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.DI8</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.ProximitySensorX</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.ProximitySensorY</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>IO.ProximitySensorZ</Name>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.ERR_FB</Name>
 							<Comment><![CDATA[TWinSafe Group]]></Comment>
@@ -2498,6 +2454,51 @@ External Setpoint Generation:
 						<Var>
 							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
 							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI1</Name>
+							<Comment><![CDATA[Terminal EL1008]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI3</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI4</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI5</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI6</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI7</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.DI8</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.ProximitySensorX</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.ProximitySensorY</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.ProximitySensorZ</Name>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2653,9 +2654,6 @@ External Setpoint Generation:
 				</Image>
 				<Image Id="4" AddrType="10" ImageType="3">
 					<Name>Image-2</Name>
-				</Image>
-				<Image Id="5" AddrType="10" ImageType="3">
-					<Name>Image-3</Name>
 				</Image>
 				<Box Id="1" BoxType="9099">
 					<Name>Term 1 (EK1100)</Name>
@@ -2927,10 +2925,10 @@ External Setpoint Generation:
 							<SuTask>#x00000000</SuTask>
 							<MBoxUserCmdData>004003000a00000000000000030010000000000000000000000000000000000020f3100502000000010000</MBoxUserCmdData>
 							<Pdo Name="FSoE Inputs" Index="#x1a00" Flags="#x0091" SyncMan="3">
-								<Entry Name="FSOE__FSoE Command" Index="#x6080" Sub="#x01">
+								<Entry Name="FSOE__FSoE Command" Index="#x6080" Sub="#x01" Flags="#x00008020">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="FSOE__FSIN Module 1.Input" Index="#x6001" Sub="#x01">
+								<Entry Name="FSOE__FSIN Module 1.Input" Index="#x6001" Sub="#x01" Flags="#x00008020">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="FSOE__FSIN Module 1.Module Fault" Index="#x6002" Sub="#x01">
@@ -3174,6 +3172,136 @@ External Setpoint Generation:
 					<Name>Drive 8 (AX5206-0000-0213)</Name>
 					<ImageId>1004</ImageId>
 					<Xml>
+						<AX5XXXDriveTool>
+							<InitCmds>
+								<InitCmd DriveNo="0" IDN="30" MotorDataLevel="0" DisableMode="0">
+									<RetainData>3e0042004669726d776172653a2076322e313320284275696c64203030303729202f20426f6f746c6f616465723a2076322e303220284275696c6420303030322900</RetainData>
+								</InitCmd>
+								<InitCmd DriveNo="0" IDN="432" MotorDataLevel="0" DisableMode="0">
+									<RetainData>1200160053657269616c233a20303030333632383538</RetainData>
+								</InitCmd>
+								<InitCmd DriveNo="0" IDN="33088" MotorDataLevel="0" DisableMode="0">
+									<RetainData>24002400d5000700ca0002002c9d5b002c9d5b000000000000000000000000002260000000000000</RetainData>
+								</InitCmd>
+								<InitCmd DriveNo="0" IDN="33093" MotorDataLevel="0" DisableMode="0">
+									<RetainData>16001a004170722033302032303230202c2031333a35353a3130</RetainData>
+								</InitCmd>
+							</InitCmds>
+							<StatusBar>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>135</Index>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>390</Index>
+									<Width>85</Width>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>95</Index>
+									<Width>100</Width>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>32821</Index>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>32973</Index>
+									<SubItem>Bit0</SubItem>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>32973</Index>
+									<SubItem>Bit3</SubItem>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>384</Index>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>135</Index>
+									<SubItem>ActualOperationMode</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33080</Index>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>32865</Index>
+									<SubItem>MotorBrakeUnlocked</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>380</Index>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>381</Index>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>32831</Index>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>Active</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>ReadyToEnable</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>IGreaterThanInom</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>IPeakLimitReached</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>IreductionActive</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>UmaxReached</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33221</Index>
+									<SubItem>FieldWeakeningActive</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>Active</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>ReadyToEnable</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>PosDirectionEnabled</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>NegDirectionEnabled</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>AccDecLimitationActive</SubItem>
+								</Element>
+								<Element option="1" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>vLimitationActive</SubItem>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>vZeroReached</SubItem>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>CmdMovPositive</SubItem>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>33271</Index>
+									<SubItem>CmdMovNegative</SubItem>
+								</Element>
+								<Element option="0" SortOder="0" SubIdx="0">
+									<Index>32983</Index>
+								</Element>
+							</StatusBar>
+						</AX5XXXDriveTool>
 						<TcDMDrive>
 							<SortId>0</SortId>
 							<DriveModuleType>31</DriveModuleType>
@@ -3190,8 +3318,6 @@ External Setpoint Generation:
 							<HardwareVersion>c:0180  p:0103  d:0102  f:0101  o:----  s:----</HardwareVersion>
 							<SerialNr>Serial#: 000362858</SerialNr>
 							<ProductRevision>AX5206-0000-0213</ProductRevision>
-							<HasDualUseInfo>true</HasDualUseInfo>
-							<OperatingFrequencyLimitation>true</OperatingFrequencyLimitation>
 							<WatchLog UpdateIntervalInMs="500">
 								<WatchLogItem>
 									<WatchLogParaSoE Index="33092"/>
@@ -5171,136 +5297,6 @@ External Setpoint Generation:
 								</Channel>
 							</Inverter>
 						</TcDMDrive>
-						<AX5XXXDriveTool>
-							<InitCmds>
-								<InitCmd DriveNo="0" IDN="30" MotorDataLevel="0" DisableMode="0">
-									<RetainData>3e0042004669726d776172653a2076322e313320284275696c64203030303729202f20426f6f746c6f616465723a2076322e303220284275696c6420303030322900</RetainData>
-								</InitCmd>
-								<InitCmd DriveNo="0" IDN="432" MotorDataLevel="0" DisableMode="0">
-									<RetainData>1200160053657269616c233a20303030333632383538</RetainData>
-								</InitCmd>
-								<InitCmd DriveNo="0" IDN="33088" MotorDataLevel="0" DisableMode="0">
-									<RetainData>24002400d5000700ca0002002c9d5b002c9d5b000000000000000000000000002260000000000000</RetainData>
-								</InitCmd>
-								<InitCmd DriveNo="0" IDN="33093" MotorDataLevel="0" DisableMode="0">
-									<RetainData>16001a004170722033302032303230202c2031333a35353a3130</RetainData>
-								</InitCmd>
-							</InitCmds>
-							<StatusBar>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>135</Index>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>390</Index>
-									<Width>85</Width>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>95</Index>
-									<Width>100</Width>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>32821</Index>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>32973</Index>
-									<SubItem>Bit0</SubItem>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>32973</Index>
-									<SubItem>Bit3</SubItem>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>384</Index>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>135</Index>
-									<SubItem>ActualOperationMode</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33080</Index>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>32865</Index>
-									<SubItem>MotorBrakeUnlocked</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>380</Index>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>381</Index>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>32831</Index>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>Active</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>ReadyToEnable</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>IGreaterThanInom</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>IPeakLimitReached</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>IreductionActive</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>UmaxReached</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33221</Index>
-									<SubItem>FieldWeakeningActive</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>Active</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>ReadyToEnable</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>PosDirectionEnabled</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>NegDirectionEnabled</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>AccDecLimitationActive</SubItem>
-								</Element>
-								<Element option="1" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>vLimitationActive</SubItem>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>vZeroReached</SubItem>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>CmdMovPositive</SubItem>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>33271</Index>
-									<SubItem>CmdMovNegative</SubItem>
-								</Element>
-								<Element option="0" SortOder="0" SubIdx="0">
-									<Index>32983</Index>
-								</Element>
-							</StatusBar>
-						</AX5XXXDriveTool>
 					</Xml>
 					<EtherCAT SlaveType="2" PdiType="#x0c08" MboxDataLinkLayer="true" StateMBoxPolling="true" CfgModeSafeOp="true" DownloadPdoCfg="true" CycleMBoxPollingTime="0" FoeType="1" SoeChannels="2" VendorId="#x00000002" ProductCode="#x14566012" RevisionNo="#x00d50000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange2="20000" TimeoutStateChange3="10000" TimeoutStateChange4="500" AutoRestoreAfterWcOk="true" CheckRevisionNoType="4" PortPhys="12305" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="AX5206-0000-0213 EtherCAT Drive (SoE, 2 Ch.)" Desc="AX5206-0000-0213" PortABoxInfo="#x02000001">
 						<SyncMan>001880002600010001000000800080008000001826010000</SyncMan>
@@ -5869,13 +5865,11 @@ External Setpoint Generation:
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500841000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500852000403}" Id="#x02030040"/>
 		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-0030-0304-1000-040333000403}" Id="#x02030080"/>
+		<MappingInfo Identifier="{00000000-0030-0304-1000-040332000403}" Id="#x02030040"/>
 		<MappingInfo Identifier="{08502002-0040-0304-0020-500840000403}" Id="#x02030060" Watchdog="04000000040000000400000004000000"/>
-		<MappingInfo Identifier="{08502002-0050-0304-0020-500850000403}" Id="#x02030070" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
-		<MappingInfo Identifier="{03040050-0050-0304-5000-040350000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{03040040-0040-0304-4000-040340000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CP6700-0001-0050">
 			<OwnerB Name="TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)^Term 9 (AX5805)">
 				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionInputs^TwinSafeGroup1.AX5805_4 TxPDO" VarB="Module 1 (Safety Process Data, 2 axis)^Outputs (Controlword)^FSOE"/>
@@ -5922,10 +5916,10 @@ External Setpoint Generation:
 		</OwnerA>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 2 (EL1008)">
-				<Link VarA="PlcTask Inputs^IO.DI4" VarB="Channel 4^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI1" VarB="Channel 1^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI2" VarB="Channel 2^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI3" VarB="Channel 3^Input"/>
+				<Link VarA="SafetyTask Inputs^IO.DI4" VarB="Channel 4^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI5" VarB="Channel 5^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI6" VarB="Channel 6^Input"/>
 				<Link VarA="SafetyTask Inputs^IO.DI7" VarB="Channel 7^Input"/>
@@ -5945,6 +5939,9 @@ External Setpoint Generation:
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.ERR_ACK" VarB="StandardOutputs^TwinSafeGroup1.ERR_ACK_5"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
+			</OwnerB>
+			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 6 (EL1918)">
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.eStop" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE^FSIN Module 1.Input"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task SAF^Axes^AxisX">
 				<Link VarA="PlcTask Inputs^MAIN.Seedra.GantryXYZ.AxisX.BasicAxis._Axis.NcToPlc" VarB="Outputs^ToPlc"/>
