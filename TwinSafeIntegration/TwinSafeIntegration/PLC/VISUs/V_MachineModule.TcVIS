@@ -1354,7 +1354,7 @@
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
-                      <v n="STSnippet">"HMI.Command.State := E_PMLCommand.ePMLCommand_Clear;
+                      <v n="STSnippet">"
 "</v>
                     </o>
                   </a>

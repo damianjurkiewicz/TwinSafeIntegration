@@ -83,10 +83,11 @@ END_IF
 SUPER^.CyclicLogic();
 
 //Here the alarms will raise and clear on its own if the input changes
-//NOT SafetyGlobalVariableList.eStop because to activate safety 
-IF SafetyGlobalVariableList.eStopHMI OR NOT SafetyGlobalVariableList.eStop AND NOT MachineAlarms[E_Seedra.EmergencyStop].bRaised THEN
 
-	THIS^.ChangeState(E_PMLCommand.ePMLCommand_Abort);
+//NOT SafetyGlobalVariableList.eStopButton -> We Decouple physical button to Activate
+  
+IF SafetyGlobalVariableList.eStopHMI OR NOT SafetyGlobalVariableList.eStopButton AND NOT MachineAlarms[E_Seedra.EmergencyStop].bRaised THEN
+	//THIS^.ChangeState(E_PMLCommand.ePMLCommand_Abort);
 	RaiseAlarmWithStrings(MachineAlarms[E_Seedra.EmergencyStop],'','');
 //	ELSIF NOT SafetyGlobalVariableList.eStop THEN
 //	MachineAlarms[E_Seedra.EmergencyStop].Clear(0, 0);
@@ -331,9 +332,10 @@ END_IF]]></ST>
       <LineId Id="3" Count="5" />
       <LineId Id="25" Count="0" />
       <LineId Id="19" Count="0" />
+      <LineId Id="39" Count="0" />
       <LineId Id="36" Count="0" />
+      <LineId Id="40" Count="0" />
       <LineId Id="20" Count="0" />
-      <LineId Id="35" Count="0" />
       <LineId Id="32" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="22" Count="1" />

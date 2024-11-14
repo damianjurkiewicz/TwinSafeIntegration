@@ -15,7 +15,7 @@
 	RUN_STOP					AT %Q* :BOOL;
 	ERR_ACK						AT %Q* :BOOL;
 	
-	eStop						AT %I* :BOOL;
+	eStopButton					AT %I* :BOOL;
 	eStopHMI					:BOOL;
 	
 	
