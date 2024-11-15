@@ -39,6 +39,31 @@ END_VAR
     </Implementation>
     <Folder Name="MyMethods" Id="{b57618a9-cc87-0238-161e-fc38101f1761}" />
     <Folder Name="States" Id="{e9e4feaf-f9ac-0641-2de9-78134dc9e0d0}" />
+    <Method Name="Aborting" Id="{30660ddb-5faf-01db-33a6-df32ebaf9037}" FolderPath="States\">
+      <Declaration><![CDATA[
+METHOD PROTECTED Aborting
+VAR
+	i				: UDINT;
+	SubModulesReady : BOOL := TRUE;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE SequenceState OF
+    0:
+        NoStateTasksToComplete := FALSE;
+        SequenceState          := SequenceState + 10;
+    10:
+		AxisX.Disable();
+		SequenceState := SequenceState + 10;
+	20:
+
+		StateTasksComplete := TRUE;
+END_CASE
+
+SUPER^.Aborting();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Clearing" Id="{fff5523f-843e-08af-21f3-aaf95cb79f9e}" FolderPath="States\">
       <Declaration><![CDATA[METHOD PROTECTED Clearing
 VAR
@@ -79,7 +104,7 @@ END_VAR]]></Declaration>
 		
 		SequenceState := SequenceState + 10;
 	20:
-		AxisX.Enable();
+	
 		SequenceState := SequenceState + 10;
 	30: 
 		SequenceState := SequenceState + 10;	
@@ -149,7 +174,7 @@ B---+-----------+---A
 			Trace('Start Cutting Box Five Sides');
 
 
-
+			AxisX.MoveVelocity(5,0);
 			
 			
 			Step := Step + 10;	
@@ -367,7 +392,8 @@ END_VAR]]></Declaration>
         <ST><![CDATA[CASE Step OF
 		
 		0: 
-			Trace('Set Speed');
+			Trace('Enable');
+			AxisX.Enable();
 		   //AxisX.MoveVelocity(5,0);
 			Step := Step + 10; 
 		10:
@@ -385,7 +411,7 @@ END_VAR]]></Declaration>
 
 	
 		20:	
-			Trace('Moved');
+			
 
 			Homing := TRUE;
 			Step := 0;	
@@ -473,6 +499,14 @@ END_CASE
     </Method>
     <LineIds Name="FB_GantryXYZ">
       <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_GantryXYZ.Aborting">
+      <LineId Id="30" Count="4" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="56" Count="1" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="29" Count="0" />
     </LineIds>
     <LineIds Name="FB_GantryXYZ.Clearing">
       <LineId Id="28" Count="5" />
@@ -645,6 +679,7 @@ END_CASE
     </LineIds>
     <LineIds Name="FB_GantryXYZ.Homing">
       <LineId Id="67" Count="3" />
+      <LineId Id="118" Count="0" />
       <LineId Id="85" Count="0" />
       <LineId Id="102" Count="0" />
       <LineId Id="72" Count="1" />
