@@ -13,7 +13,6 @@ VAR
     AxisY    			: FB_Component_BasicAxis 		:= (Name := 'AxisY');
 	AxisZ				: FB_Component_BasicAxis		:= (Name := 'AxisZ');
     GantryCylinder		: FB_GantryXYCylinder			:= (Name := 'Cylinder');
-
     //Alarms for this module
     GantryAlarms : ARRAY[1..GANTRY_ALARM_COUNT] OF FB_TcAlarm;
 
@@ -24,6 +23,7 @@ VAR
 
 	HomeComplete :BOOL;
 	
+	//resets
 
 
 END_VAR
@@ -46,14 +46,17 @@ VAR
 	SubModulesReady : BOOL := TRUE;
 END_VAR
 
-]]></Declaration>
+VAR_INST
+	SoEResetAxis1 : FB_SoEReset;
+	ResetAxis1 :	MC_Reset;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[CASE SequenceState OF
     0:
         NoStateTasksToComplete := FALSE;
         SequenceState          := SequenceState + 10;
     10:
-        //Reset any alarms that get latched
+		//Reset any alarms that get latched
 //		GantryAlarms[E_Gantry.AlarmMessage].Clear(0,0);		
 //		GantryAlarms[E_Gantry.InfoMessage].Clear(0,0);
 //		GantryAlarms[E_Gantry.InitReferenceEvent].Clear(0,0);
@@ -62,13 +65,26 @@ END_VAR
 //		AxisX.Reset();
 //		AxisY.Reset();
 //		AxisZ.Reset();
-        SequenceState := SequenceState + 10;
+
+
+
+//		AxisX.Reset();
+
+		SoEResetAxis1(Axis := AxisX.Axis);
+		SoEResetAxis1.Execute := TRUE;	
 		
+		ResetAxis1(Axis:=AxisX.Axis);
+		ResetAxis1.Execute := TRUE;
+		
+		
+		SequenceState := SequenceState + 10;
 	20:
+		AxisX.Enable();
 		SequenceState := SequenceState + 10;
 	30: 
 		SequenceState := SequenceState + 10;	
     40:
+
         // Enable here
 		// AxisX.Enable();
 		// AxisY.Enable();
@@ -131,6 +147,10 @@ B---+-----------+---A
 //Print Info
 			
 			Trace('Start Cutting Box Five Sides');
+
+
+
+			
 			
 			Step := Step + 10;	
 
@@ -460,11 +480,24 @@ END_CASE
       <LineId Id="83" Count="3" />
       <LineId Id="75" Count="2" />
       <LineId Id="35" Count="0" />
-      <LineId Id="56" Count="0" />
-      <LineId Id="60" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="130" Count="1" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="123" Count="0" />
       <LineId Id="62" Count="1" />
       <LineId Id="65" Count="0" />
-      <LineId Id="36" Count="1" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="37" Count="0" />
       <LineId Id="80" Count="1" />
       <LineId Id="49" Count="0" />
       <LineId Id="40" Count="4" />
@@ -487,6 +520,9 @@ END_CASE
       <LineId Id="99" Count="0" />
       <LineId Id="156" Count="0" />
       <LineId Id="143" Count="0" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="332" Count="0" />
+      <LineId Id="335" Count="1" />
       <LineId Id="148" Count="1" />
       <LineId Id="118" Count="0" />
       <LineId Id="100" Count="2" />

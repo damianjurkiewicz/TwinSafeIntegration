@@ -30,7 +30,8 @@
 	SAFETY_Permission			AT %I* :BOOL; // FALSE = cannot operate
 	RestartFBs_TSG				AT %Q* :BOOL; // Restart FB in TwinSafe Gr
 	
-
+	ENABLE :BOOL;
+	RESET : BOOL;
 	
 END_VAR]]></Declaration>
   </GVL>

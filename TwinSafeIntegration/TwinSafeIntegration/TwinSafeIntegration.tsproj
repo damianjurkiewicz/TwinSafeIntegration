@@ -2369,11 +2369,15 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{B0AD2C96-479B-6D06-CDBD-2E78FD9C4383}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{E2C2C611-56A8-4C98-50AE-E0C2422A83D0}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>SafetyGlobalVariableList.eStopButton</Name>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>MAIN.Seedra.GantryXYZ.AxisX.BasicAxis._Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
@@ -2386,13 +2390,13 @@ External Setpoint Generation:
 							<Name>MAIN.Seedra.GantryXYZ.AxisZ.BasicAxis._Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.eStopButton</Name>
-							<Type>BOOL</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>SafetyGlobalVariableList.RUN_STOP</Name>
+							<Type>BOOL</Type>
+						</Var>
 						<Var>
 							<Name>MAIN.Seedra.GantryXYZ.AxisX.BasicAxis._Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
@@ -2410,52 +2414,9 @@ External Setpoint Generation:
 							<Comment><![CDATA[Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.RUN_STOP</Name>
-							<Type>BOOL</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 						<Name>SafetyTask Inputs</Name>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_FB</Name>
-							<Comment><![CDATA[TWinSafe Group]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_COM</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.IN_RUN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_Error_Ch1</Name>
-							<Comment><![CDATA[AX580x]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_Error_Ch2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch1</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
-							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>IO.DI1</Name>
 							<Comment><![CDATA[Terminal EL1008]]></Comment>
@@ -2499,6 +2460,45 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>IO.ProximitySensorZ</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_FB</Name>
+							<Comment><![CDATA[TWinSafe Group]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_COM</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.IN_RUN</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_Error_Ch1</Name>
+							<Comment><![CDATA[AX580x]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_Error_Ch2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch1</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch2</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
+							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
