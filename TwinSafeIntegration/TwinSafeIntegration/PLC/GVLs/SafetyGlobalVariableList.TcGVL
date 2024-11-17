@@ -3,32 +3,37 @@
   <GVL Name="SafetyGlobalVariableList" Id="{13d008cd-a3ed-463e-8cd9-e5d8c7d5c4a7}">
     <Declaration><![CDATA[VAR_GLOBAL
 	//State
-	SafetySate: INT;
-	ERR_ACK_RESETED : BOOL;
-	AX5805_ErrACK_RESETED : BOOL;
+	SafetySate						:INT;
+	ERR_ACK_RESETED					:BOOL;
+	AX5805_ErrACK_RESETED			:BOOL;
 	
 	//TWinSafe Group
-	ERR_FB						AT %I* :BOOL;
-	ERR_COM						AT %I* :BOOL;
-	ERR_OTHER					AT %I* :BOOL;
-	IN_RUN						AT %I* :BOOL;
-	RUN_STOP					AT %Q* :BOOL;
-	ERR_ACK						AT %Q* :BOOL;
+	RUN_STOP					AT %Q* :BOOL;	// Turn ON/OFF Safety terminal
+	IN_RUN						AT %I* :BOOL;	// Group has no more errors. Is running. But FB can be still in err.
+
+	//General errors of the Safety Group
+	ERR_FB						AT %I* :BOOL;	// One of FB is in error state
+	ERR_COM						AT %I* :BOOL;	// Communication / hardware errors
+	ERR_OTHER					AT %I* :BOOL;	// Other TwinSAFE errors
 	
-	eStopButton					AT %I* :BOOL;
-	eStopHMI					:BOOL;
+	//Reset Errors
+	ERR_ACK						AT %Q* :BOOL;	// Reset channel errors (this variable can be divided to reset channels separetly
+	AX5805_ErrACK				AT %Q* :BOOL;	// Reset channel errors
+	RestartFBs_TSG				AT %Q* :BOOL;	// Restart Function Blocks in the TwinSafe Group
 	
-	
-	//AX580x
-	AX5805_Error_Ch1			AT %I* :BOOL;
-	AX5805_Error_Ch2			AT %I* :BOOL;
-	AX5805_STO_State_Ch1		AT %I* :BOOL;
-	AX5805_STO_State_Ch2		AT %I* :BOOL;
-	AX5805_ErrACK				AT %Q* :BOOL;
+	//AX580x Info
+	AX5805_Error_Ch1			AT %I* :BOOL;	// General error flag
+	AX5805_Error_Ch2			AT %I* :BOOL;	// General error flag
+	AX5805_STO_State_Ch1		AT %I* :BOOL;	// Reversed logic: TRUE - Permission to work | FALSE - STO activated
+	AX5805_STO_State_Ch2		AT %I* :BOOL;	// Reversed logic: TRUE - Permission to work | FALSE - STO activated
 	
 	//Other
-	SAFETY_Permission			AT %I* :BOOL; // FALSE = cannot operate
-	RestartFBs_TSG				AT %Q* :BOOL; // Restart FB in TwinSafe Gr
+	SAFETY_Permission			AT %I* :BOOL;	// TRUE = Work Permission | FALSE = Stop & disable servo
+
+	
+	//Buttons
+	eStopButton					AT %I* :BOOL;
+	eStopHMI					:BOOL;
 	
 	
 END_VAR]]></Declaration>

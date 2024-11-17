@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.50">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.55">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000000000035}" TcBaseType="true" HideType="true">UINTARR2</Name>
@@ -1565,7 +1565,7 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -2369,7 +2369,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{6410D234-39FD-4FB0-BA8E-E8164EAAC3E9}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{63D73CF6-9DD3-BA5D-84D2-964075D7CA15}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{04F765A1-9AB8-383F-BF01-25F4B0B21F84}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2387,7 +2387,43 @@ External Setpoint Generation:
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
+							<Name>SafetyGlobalVariableList.IN_RUN</Name>
+							<Comment><![CDATA[ Group has no more errors. Is running. But FB can be still in err.]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_FB</Name>
+							<Comment><![CDATA[ One of FB is in error state]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_COM</Name>
+							<Comment><![CDATA[ Communication / hardware errors]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
+							<Comment><![CDATA[ Other TwinSAFE errors]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_Error_Ch1</Name>
+							<Comment><![CDATA[ General error flag]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_Error_Ch2</Name>
+							<Comment><![CDATA[ General error flag]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
+							<Comment><![CDATA[ TRUE = Work Permission | FALSE = Stop & disable servo]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>SafetyGlobalVariableList.eStopButton</Name>
+							<Comment><![CDATA[Buttons]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2412,6 +2448,17 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.RUN_STOP</Name>
+							<Comment><![CDATA[ Turn ON/OFF Safety terminal]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.AX5805_ErrACK</Name>
+							<Comment><![CDATA[ Reset channel errors]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>SafetyGlobalVariableList.RestartFBs_TSG</Name>
+							<Comment><![CDATA[ Restart Function Blocks in the TwinSafe Group]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2463,42 +2510,13 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>SafetyGlobalVariableList.ERR_FB</Name>
-							<Comment><![CDATA[TWinSafe Group]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_COM</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.ERR_OTHER</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.IN_RUN</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_Error_Ch1</Name>
-							<Comment><![CDATA[AX580x]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_Error_Ch2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch1</Name>
+							<Comment><![CDATA[ Reversed logic: TRUE - Permission to work | FALSE - STO activated]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>SafetyGlobalVariableList.AX5805_STO_State_Ch2</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.SAFETY_Permission</Name>
-							<Comment><![CDATA[ FALSE = cannot operate]]></Comment>
+							<Comment><![CDATA[ Reversed logic: TRUE - Permission to work | FALSE - STO activated]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2506,15 +2524,7 @@ External Setpoint Generation:
 						<Name>SafetyTask Outputs</Name>
 						<Var>
 							<Name>SafetyGlobalVariableList.ERR_ACK</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.AX5805_ErrACK</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>SafetyGlobalVariableList.RestartFBs_TSG</Name>
-							<Comment><![CDATA[ Restart FB in TwinSafe Gr]]></Comment>
+							<Comment><![CDATA[ Reset channel errors (this variable can be divided to reset channels separetly]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2630,7 +2640,7 @@ External Setpoint Generation:
 			</Project>
 		</Plc>
 		<Safety>
-			<Project GUID="{B26AFCE8-305E-47E7-BAEC-930BD9740A9F}" Name="Safety" PrjFilePath="Safety\Safety.splcProj" TmcFilePath="Safety\Safety.tmc" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
+			<Project Name="Safety" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
 				<Instance Id="#x01010010" KeepUnrestoredLinks="2">
 					<Name>Safety Instance</Name>
 					<TmcDesc GUID="{72A6D5B8-E98C-4604-8B90-09D1F8AB38A9}">
@@ -2647,7 +2657,7 @@ External Setpoint Generation:
 			</Project>
 		</Safety>
 		<Io>
-			<Device Id="3" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="5.81.155.22.4.1" RemoteName="CP6700-0001-0050" InfoImageId="3">
+			<Device Id="3" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28675" AmsNetId="5.81.155.22.4.1" RemoteName="CP6700-0001-0050" InfoImageId="3">
 				<Name>CP6700-0001-0050</Name>
 				<AddressInfo>
 					<Pnp>
@@ -5871,12 +5881,7 @@ External Setpoint Generation:
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500841000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-0030-0304-1000-040332000403}" Id="#x02030040"/>
-		<MappingInfo Identifier="{08502002-0040-0304-0020-500840000403}" Id="#x02030060" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
-		<MappingInfo Identifier="{03040040-0040-0304-4000-040340000403}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^CP6700-0001-0050">
 			<OwnerB Name="TIID^CP6700-0001-0050^Drive 8 (AX5206-0000-0213)^Term 9 (AX5805)">
 				<Link VarA="Term 1 (EK1100)^Term 5 (EL6910)^ConnectionInputs^TwinSafeGroup1.AX5805_4 TxPDO" VarB="Module 1 (Safety Process Data, 2 axis)^Outputs (Controlword)^FSOE"/>
@@ -5933,19 +5938,19 @@ External Setpoint Generation:
 				<Link VarA="SafetyTask Inputs^IO.DI8" VarB="Channel 8^Input"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 5 (EL6910)">
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch1_13"/>
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch2_14"/>
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.ERR_COM" VarB="StandardInputs^TwinSafeGroup1.ERR_COM_7"/>
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.ERR_FB" VarB="StandardInputs^TwinSafeGroup1.ERR_FB_8"/>
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.ERR_OTHER" VarB="StandardInputs^TwinSafeGroup1.ERR_OTHER_9"/>
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.IN_RUN" VarB="StandardInputs^TwinSafeGroup1.IN_RUN_10"/>
+				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.SAFETY_Permission" VarB="StandardInputs^TwinSafeGroup1.PLC_SAFETY_Permission_17"/>
+				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
 				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.RUN_STOP" VarB="StandardOutputs^TwinSafeGroup1.RUN_STOP_6"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch1_13"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_Error_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_Error_Ch2_14"/>
+				<Link VarA="PlcTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_STO_State_Ch1" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_STOState_Ch1_15"/>
 				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.AX5805_STO_State_Ch2" VarB="StandardInputs^TwinSafeGroup1.PLC_AX5805_STOState_Ch2_16"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_COM" VarB="StandardInputs^TwinSafeGroup1.ERR_COM_7"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_FB" VarB="StandardInputs^TwinSafeGroup1.ERR_FB_8"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.ERR_OTHER" VarB="StandardInputs^TwinSafeGroup1.ERR_OTHER_9"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.IN_RUN" VarB="StandardInputs^TwinSafeGroup1.IN_RUN_10"/>
-				<Link VarA="SafetyTask Inputs^SafetyGlobalVariableList.SAFETY_Permission" VarB="StandardInputs^TwinSafeGroup1.PLC_SAFETY_Permission_17"/>
-				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.AX5805_ErrACK" VarB="StandardOutputs^TwinSafeGroup1.PLC_AX5805_ErrorAck_11"/>
 				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.ERR_ACK" VarB="StandardOutputs^TwinSafeGroup1.ERR_ACK_5"/>
-				<Link VarA="SafetyTask Outputs^SafetyGlobalVariableList.RestartFBs_TSG" VarB="StandardOutputs^TwinSafeGroup1.PLC_RestartFBs_12"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CP6700-0001-0050^Term 1 (EK1100)^Term 6 (EL1918)">
 				<Link VarA="PlcTask Inputs^SafetyGlobalVariableList.eStopButton" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE^FSIN Module 1.Input"/>
